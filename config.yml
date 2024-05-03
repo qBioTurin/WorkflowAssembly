@@ -1,0 +1,8 @@
+genome_size: 13m
+fastq_directory:
+  class: Directory
+  path: /Data/fastqBITS 
+nanopore: true
+prefix: assembly
+threads: 30
+

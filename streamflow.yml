@@ -1,0 +1,92 @@
+#!/usr/bin/env streamflow
+version: v1.0
+workflows:
+  workflow:
+    type: cwl
+    config:
+      file: workflow.cwl
+      settings: config.yml
+    bindings:
+      - step: /canu/canu
+        target:
+          deployment: slurm-canu
+          workdir: /beegfs/home/scontald/sf_tmp
+      - step: /canu/medaka_canu
+        target:
+          deployment: slurm-medaka
+          workdir: /beegfs/home/scontald/sf_tmp
+      - step: /flye/flye
+        target:
+          deployment: slurm-flye
+          workdir: /beegfs/home/scontald/sf_tmp
+      - step: /flye/medaka_flye
+        target:
+          deployment: slurm-medaka
+          workdir: /beegfs/home/scontald/sf_tmp
+      - step: /wtdbg2/wtdbg2
+        target:
+          deployment: slurm-wtdbg2
+          workdir: /beegfs/home/scontald/sf_tmp
+      - step: /wtdbg2/wtpoa-cns
+        target:
+          deployment: slurm-wtdbg2
+          workdir: /beegfs/home/scontald/sf_tmp
+      - step: /wtdbg2/medaka_wtdbg2
+        target:
+          deployment: slurm-medaka
+          workdir: /beegfs/home/scontald/sf_tmp
+      - step: /quickmerge_canuflye
+        target:
+          deployment: slurm-quickmerge
+          workdir: /beegfs/home/scontald/sf_tmp
+      - step: /quickmerge_flyewtdbg2
+        target:
+          deployment: slurm-quickmerge
+          workdir: /beegfs/home/scontald/sf_tmp
+      - step: /quickmerge_canuwtdbg2
+        target:
+          deployment: slurm-quickmerge
+          workdir: /beegfs/home/scontald/sf_tmp
+        
+
+deployments:
+  slurm-canu:
+    type: slurm
+    config:
+      hostname: c3sfr1.di.unito.it
+      username: scontald
+      sshKey: key/id_rsa  
+      maxConcurrentJobs: 20
+      file: ./sbatch/canu.sh
+  slurm-flye:
+    type: slurm
+    config:
+      hostname: c3sfr1.di.unito.it
+      username: scontald
+      sshKey: key/id_rsa  
+      maxConcurrentJobs: 5
+      file: ./sbatch/flye.sh
+  slurm-wtdbg2:
+    type: slurm
+    config:
+      hostname: c3sfr1.di.unito.it
+      username: scontald
+      sshKey: key/id_rsa  
+      maxConcurrentJobs: 5
+      file: ./sbatch/wtdbg2.sh
+  slurm-medaka:
+    type: slurm
+    config:
+      hostname: c3sfr1.di.unito.it
+      username: scontald
+      sshKey: key/id_rsa  
+      maxConcurrentJobs: 10
+      file: ./sbatch/medaka.sh
+  slurm-quickmerge:
+    type: slurm
+    config:
+      hostname: c3sfr1.di.unito.it
+      username: scontald
+      sshKey: key/id_rsa  
+      maxConcurrentJobs: 20
+      file: ./sbatch/quickmerge.sh
