@@ -47,6 +47,10 @@ workflows:
         target:
           deployment: slurm-quickmerge
           workdir: /beegfs/home/scontald/sf_tmp
+      - step: /busco
+        target:
+          deployment: slurm-busco
+          workdir: /beegfs/home/scontald/sf_tmp
         
 
 deployments:
@@ -90,3 +94,11 @@ deployments:
       sshKey: key/id_rsa  
       maxConcurrentJobs: 20
       file: ./sbatch/quickmerge.sh
+  slurm-busco:
+    type: slurm
+    config:
+      hostname: c3sfr1.di.unito.it
+      username: scontald
+      sshKey: key/id_rsa  
+      maxConcurrentJobs: 20
+      file: ./sbatch/busco.sh

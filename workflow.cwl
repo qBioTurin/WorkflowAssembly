@@ -14,6 +14,11 @@ inputs:
   nanopore: boolean
   prefix: string
   threads: int
+  pacbio: boolean
+  pacbio-hifi: boolean
+  min_coverage: int
+  mode: string
+  lineage: string
 
 outputs: 
   medaka_canu_out:
@@ -34,6 +39,9 @@ outputs:
   quickmerge_flyewtdbg2_out:
     type: File[]
     outputSource: quickmerge_flyewtdbg2/contigs
+  busco_results:
+    type: File[]
+    outputSource: busco/busco_json
     
 
 steps:
@@ -50,6 +58,9 @@ steps:
       nanopore: nanopore
       prefix: prefix
       threads: threads
+      pacbio: pacbio
+      pacbio-hifi: pacbio-hifi
+      min_coverage: min_coverage
     out: [contigs]
   flye:
     run: cwl/flyeWorkflow.cwl
@@ -58,6 +69,8 @@ steps:
       genome_size: genome_size
       nanopore: nanopore
       prefix: prefix
+      pacbio: pacbio                                                                                                                                    
+      pacbio-hifi: pacbio-hifi
       threads: threads
     out: [contigs]
   wtdbg2:
@@ -66,6 +79,7 @@ steps:
       fastq: zerothstep/reads    
       prefix: prefix
       threads: threads
+      genome_size: genome_size
     out: [contigs]
   quickmerge_canuflye:
     run: cwl/quickmerge.cwl
@@ -91,3 +105,15 @@ steps:
       hybrid_fasta: wtdbg2/contigs
       self_fasta: flye/contigs
     out: [contigs]
+  busco:
+    run: cwl/busco.cwl
+    scatter: [fasta]
+    in: 
+      fasta: 
+        source: [quickmerge_canuflye/contigs, quickmerge_canuwtdbg2/contigs, quickmerge_flyewtdbg2/contigs]
+        linkMerge: merge_flattened
+      prefix: prefix
+      mode: mode
+      lineage: lineage
+      threads: threads
+    out: [busco_json]

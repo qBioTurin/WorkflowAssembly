@@ -12,7 +12,7 @@ inputs:
   fastq: File[]
   prefix: string
   threads: int
-  
+  genome_size: string  
   
 
 outputs: 
@@ -28,6 +28,7 @@ steps:
       fastq: fastq
       prefix: prefix
       threads: threads
+      genome_size: genome_size
     out: [lay]
   wtpoa-cns:
     run: wtdbg2/wtpoa-cns.cwl

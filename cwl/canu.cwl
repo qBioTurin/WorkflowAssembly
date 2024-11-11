@@ -18,7 +18,7 @@ inputs:
     doc: "FASTQ input files"
     type: File
     inputBinding:
-      position: 9
+      position: 30 
   genome_size:
     doc: ""
     type: string
@@ -32,6 +32,25 @@ inputs:
     inputBinding:
       position: 6
       prefix: -nanopore
+  pacbio:
+    doc: ""
+    type: boolean?
+    inputBinding:
+      position: 7
+      prefix: -pacbio
+  pacbio-hifi:
+    doc: ""
+    type: boolean?
+    inputBinding:
+      position: 8
+      prefix: -pacbio-hifi
+  min_coverage:
+    doc: ""
+    type: int?
+    inputBinding:
+      position: 9
+      prefix: minInputCoverage=
+      separate: false
   prefix:
     doc: "Assembly prefix"
     type: string

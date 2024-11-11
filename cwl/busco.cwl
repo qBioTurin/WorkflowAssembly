@@ -7,38 +7,41 @@ requirements:
 hints:
   ResourceRequirement:
     coresMax: $(inputs.threads)
+  DockerRequirement:
+    dockerPull: ezlabgva/busco:v5.8.0_cv1 
 
-baseCommand: ["wtdbg2"]
+baseCommand: ["busco"]
 
 inputs: 
-  fastq:
-    doc: "FASTQ input files"
+  fasta:
     type: File
     inputBinding:
-      position: 8
+      position: 30
       prefix: -i
   prefix:
-    doc: "Assembly prefix"
+    type: string
+    inputBinding: 
+      position: 5
+      prefix: -o
+  mode:
     type: string
     inputBinding:
       position: 1
-      prefix: -o
-  genome_size:
+      prefix: -m
+  lineage:
     type: string
     inputBinding:
       position: 2
-      prefix: -g
+      prefix: -l
   threads:
-    doc: ""
     type: int?
     default: 4
     inputBinding:
       position: 4
-      prefix: -t
+      prefix: -c
 
 outputs:
-  lay:
-    doc: ""
+  busco_json:
     type: File
     outputBinding:
-      glob: $(inputs.prefix).ctg.lay.gz
+      glob: "$(inputs.prefix)/*.json"

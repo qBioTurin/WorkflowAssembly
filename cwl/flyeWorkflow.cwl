@@ -14,7 +14,8 @@ inputs:
   nanopore: boolean
   prefix: string
   threads: int
-  
+  pacbio: boolean
+  pacbio-hifi: boolean 
   
 
 outputs: 
@@ -32,6 +33,8 @@ steps:
       nanopore: nanopore
       prefix: prefix
       threads: threads
+      pacbio: pacbio
+      pacbio-hifi: pacbio-hifi
     out: [contigs]
   medaka_flye:
     run: medaka.cwl

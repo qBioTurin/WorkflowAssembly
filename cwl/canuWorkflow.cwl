@@ -14,8 +14,9 @@ inputs:
   nanopore: boolean
   prefix: string
   threads: int?
-  
-  
+  pacbio: boolean
+  pacbio-hifi: boolean
+  min_coverage: int
 
 outputs: 
   contigs:
@@ -32,6 +33,9 @@ steps:
       nanopore: nanopore
       prefix: prefix
       threads: threads
+      pacbio: pacbio
+      pacbio-hifi: pacbio-hifi
+      min_coverage: min_coverage
     out: [contigs]
   medaka_canu:
     run: medaka.cwl

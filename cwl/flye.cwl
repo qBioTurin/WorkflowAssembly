@@ -20,7 +20,7 @@ inputs:
     doc: "FASTQ input files"
     type: File
     inputBinding:
-      position: 8
+      position: 30
   genome_size:
     doc: ""
     type: string
@@ -33,6 +33,16 @@ inputs:
     inputBinding:
       position: 5
       prefix: --nano-raw
+  pacbio:
+    type: boolean?
+    inputBinding:
+      position: 6
+      prefix: --pacbio-raw
+  pacbio-hifi:
+    type: boolean?
+    inputBinding:
+      position: 7
+      prefix: --pacbio-hifi
   prefix:
     doc: "Assembly prefix"
     type: string
