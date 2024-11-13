@@ -9,7 +9,7 @@ requirements:
   ScatterFeatureRequirement: {}
 
 inputs:
-  fastq: File[]
+  fastq: File
   prefix: string
   threads: int
   genome_size: string  
@@ -17,13 +17,12 @@ inputs:
 
 outputs: 
   contigs:
-    type: File[]
+    type: File
     outputSource: medaka_wtdbg2/contigs
 
 steps:
   wtdbg2:
     run: wtdbg2/wtdbg2.cwl
-    scatter: [fastq]
     in:
       fastq: fastq
       prefix: prefix
@@ -32,7 +31,6 @@ steps:
     out: [lay]
   wtpoa-cns:
     run: wtdbg2/wtpoa-cns.cwl
-    scatter: [lay]
     in:
       lay: wtdbg2/lay
       prefix: prefix
@@ -40,8 +38,6 @@ steps:
     out: [fasta]
   medaka_wtdbg2:
     run: medaka.cwl
-    scatter: [fastq, assembly]
-    scatterMethod: dotproduct
     in:
       fastq: fastq
       assembly: wtpoa-cns/fasta

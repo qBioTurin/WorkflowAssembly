@@ -42,3 +42,7 @@ outputs:
     type: File
     outputBinding:
       glob: $(inputs.prefix).ctg.lay.gz
+      outputEval: ${
+        var nameParts = inputs.fastq.basename.split(".");
+        self[0].basename = nameParts[0] + ".ctg.lay.gz";
+        return self; }

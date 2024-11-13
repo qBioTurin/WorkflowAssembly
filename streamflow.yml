@@ -7,47 +7,47 @@ workflows:
       file: workflow.cwl
       settings: config.yml
     bindings:
-      - step: /canu/canu
+      - step: /assembly_evaluation/assembly/canu/canu
         target:
           deployment: slurm-canu
           workdir: /beegfs/home/scontald/sf_tmp
-      - step: /canu/medaka_canu
+      - step: /assembly_evaluation/assembly/canu/medaka_canu
         target:
           deployment: slurm-medaka
           workdir: /beegfs/home/scontald/sf_tmp
-      - step: /flye/flye
+      - step: /assembly_evaluation/assembly/flye/flye
         target:
           deployment: slurm-flye
           workdir: /beegfs/home/scontald/sf_tmp
-      - step: /flye/medaka_flye
+      - step: /assembly_evaluation/assembly/flye/medaka_flye
         target:
           deployment: slurm-medaka
           workdir: /beegfs/home/scontald/sf_tmp
-      - step: /wtdbg2/wtdbg2
+      - step: /assembly_evaluation/assembly/wtdbg2/wtdbg2
         target:
           deployment: slurm-wtdbg2
           workdir: /beegfs/home/scontald/sf_tmp
-      - step: /wtdbg2/wtpoa-cns
+      - step: /assembly_evaluation/assembly/wtdbg2/wtpoa-cns
         target:
           deployment: slurm-wtdbg2
           workdir: /beegfs/home/scontald/sf_tmp
-      - step: /wtdbg2/medaka_wtdbg2
+      - step: /assembly_evaluation/assembly/wtdbg2/medaka_wtdbg2
         target:
           deployment: slurm-medaka
           workdir: /beegfs/home/scontald/sf_tmp
-      - step: /quickmerge_canuflye
+      - step: /assembly_evaluation/assembly/quickmerge_canuflye
         target:
           deployment: slurm-quickmerge
           workdir: /beegfs/home/scontald/sf_tmp
-      - step: /quickmerge_flyewtdbg2
+      - step: /assembly_evaluation/assembly/quickmerge_flyewtdbg2
         target:
           deployment: slurm-quickmerge
           workdir: /beegfs/home/scontald/sf_tmp
-      - step: /quickmerge_canuwtdbg2
+      - step: /assembly_evaluation/assembly/quickmerge_canuwtdbg2
         target:
           deployment: slurm-quickmerge
           workdir: /beegfs/home/scontald/sf_tmp
-      - step: /busco
+      - step: /assembly_evaluation/evaluation/busco
         target:
           deployment: slurm-busco
           workdir: /beegfs/home/scontald/sf_tmp

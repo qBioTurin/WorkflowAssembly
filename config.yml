@@ -1,8 +1,12 @@
 genome_size: 13m
 fastq_directory:
   class: Directory
-  path: /Data/fastqBITS 
+  path: /storage/tmp/input
 nanopore: true
 prefix: assembly
-threads: 30
-
+threads: 34
+pacbio: false
+pacbio-hifi: false
+min_coverage: 8
+lineage: ascomycota
+mode: genome

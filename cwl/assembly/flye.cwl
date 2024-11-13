@@ -10,65 +10,62 @@ requirements:
 hints:
   ResourceRequirement:
     coresMax: $(inputs.threads)
+  DockerRequirement:
+    dockerPull: quay.io/biocontainers/flye:2.9.3--py310h2b6aa90_0 
 
-baseCommand: ["canu"]
+baseCommand: ["flye"]
 
 inputs: 
   fastq:
     doc: "FASTQ input files"
     type: File
     inputBinding:
-      position: 30 
+      position: 30
   genome_size:
     doc: ""
     type: string
     inputBinding:
       position: 3
-      prefix: genomeSize=
-      separate: false
+      prefix: -g
   nanopore:
     doc: ""
     type: boolean?
     inputBinding:
-      position: 6
-      prefix: -nanopore
+      position: 5
+      prefix: --nano-raw
   pacbio:
-    doc: ""
+    type: boolean?
+    inputBinding:
+      position: 6
+      prefix: --pacbio-raw
+  pacbio-hifi:
     type: boolean?
     inputBinding:
       position: 7
-      prefix: -pacbio
-  pacbio-hifi:
-    doc: ""
-    type: boolean?
-    inputBinding:
-      position: 8
-      prefix: -pacbio-hifi
-  min_coverage:
-    doc: ""
-    type: int?
-    inputBinding:
-      position: 9
-      prefix: minInputCoverage=
-      separate: false
+      prefix: --pacbio-hifi
   prefix:
     doc: "Assembly prefix"
     type: string
     inputBinding:
       position: 1
-      prefix: -p
+      prefix: -o
   threads:
-    doc: "Maximum number of compute threads to use by any component of the assembler"
+    doc: ""
     type: int?
     default: 4
     inputBinding:
-      position: 5
-      prefix: maxThreads=
-      separate: false
+      position: 4
+      prefix: --threads
 
 outputs:
   contigs:
     doc: ""
     type: File
     outputBinding:
-      glob: $(inputs.prefix).contigs.fasta
+      glob: $(inputs.prefix)/assembly.fasta
+      outputEval: |
+        ${
+          var nameParts = inputs.fastq.basename.split(".");
+          self[0].basename = nameParts[0] + '_flye.fasta';
+          return self[0]
+        }

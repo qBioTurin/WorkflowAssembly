@@ -9,24 +9,23 @@ requirements:
   ScatterFeatureRequirement: {}
 
 inputs:
-  fastq: File[]
+  fastq: File
   genome_size: string
   nanopore: boolean
   prefix: string
-  threads: int?
+  threads: int
   pacbio: boolean
-  pacbio-hifi: boolean
-  min_coverage: int
+  pacbio-hifi: boolean 
+  
 
 outputs: 
   contigs:
-    type: File[]
-    outputSource: medaka_canu/contigs
+    type: File
+    outputSource: medaka_flye/contigs
 
 steps:
-  canu:
-    run: canu.cwl
-    scatter: [fastq]
+  flye:
+    run: flye.cwl
     in:
       fastq: fastq
       genome_size: genome_size
@@ -35,14 +34,11 @@ steps:
       threads: threads
       pacbio: pacbio
       pacbio-hifi: pacbio-hifi
-      min_coverage: min_coverage
     out: [contigs]
-  medaka_canu:
+  medaka_flye:
     run: medaka.cwl
-    scatter: [fastq, assembly]
-    scatterMethod: dotproduct
     in:
       fastq: fastq
-      assembly: canu/contigs
+      assembly: flye/contigs
       threads: threads
     out: [contigs] 

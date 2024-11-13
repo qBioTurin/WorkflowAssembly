@@ -17,7 +17,6 @@ arguments:
 
 inputs: 
   lay:
-    doc: "FASTQ input files"
     type: File
     inputBinding:
       position: 8
@@ -39,3 +38,7 @@ outputs:
     type: File
     outputBinding:
       glob: $(inputs.prefix).fasta
+      outputEval: ${
+        var nameParts = inputs.lay[0].basename.split(".");
+        self[0].basename = nameParts[0] + "_wtdbg2.fasta";
+        return self; }

@@ -42,3 +42,10 @@ outputs:
     type: File
     outputBinding:
       glob: medaka/consensus.fasta 
+      outputEval: |
+        ${
+          var assemblyName = Array.isArray(inputs.assembly) ? inputs.assembly[0].basename : inputs.assembly.basename;
+          var nameParts = assemblyName.split(".");
+          self[0].basename = nameParts[0] + "_consensus.fasta";
+          return self; 
+        }
