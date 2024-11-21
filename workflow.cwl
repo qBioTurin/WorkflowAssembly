@@ -46,7 +46,9 @@ outputs:
         type: array
         items: File
     outputSource: assembly_evaluation/busco_json
-    
+  best_fastas:
+    type: File[]
+    outputSource: assembly_evaluation/best_fasta
 
 steps:
   zerothstep:
@@ -68,4 +70,4 @@ steps:
       min_coverage: min_coverage
       mode: mode
       lineage: lineage
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json]
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta]

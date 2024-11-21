@@ -51,6 +51,10 @@ workflows:
         target:
           deployment: slurm-busco
           workdir: /beegfs/home/scontald/sf_tmp
+      - step: /assembly_evaluation/best-result
+        target:
+          deployment: slurm-best-result
+          workdir: /beegfs/home/scontald/sf_tmp
         
 
 deployments:
@@ -102,3 +106,11 @@ deployments:
       sshKey: key/id_rsa  
       maxConcurrentJobs: 20
       file: ./sbatch/busco.sh
+  slurm-best-result:
+    type: slurm
+    config:
+      hostname: c3sfr1.di.unito.it
+      username: scontald
+      sshKey: key/id_rsa  
+      maxConcurrentJobs: 20
+      file: ./sbatch/bestResult.sh

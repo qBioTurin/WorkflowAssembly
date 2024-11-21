@@ -42,6 +42,9 @@ outputs:
   busco_json:
     type: File[]
     outputSource: evaluation/busco_json
+  best_fasta:
+    type: File
+    outputSource: best-result/best_fasta
 
 steps:
   assembly:
@@ -68,3 +71,11 @@ steps:
       mode: mode
       lineage: lineage
     out: [busco_json]
+  best-result:
+    run: evaluation/bestResult.cwl
+    in:
+      json: evaluation/busco_json
+      fasta: 
+        source: [assembly/quickmerge_canuflye_out, assembly/quickmerge_canuwtdbg2_out, assembly/quickmerge_flyewtdbg2_out]
+        linkMerge: merge_flattened
+    out: [best_fasta]
