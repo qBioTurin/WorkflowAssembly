@@ -19,6 +19,8 @@ inputs:
   min_coverage: int
   mode: string
   lineage: string
+  kingdom: string
+  prokaryotic: boolean
 
 outputs: 
   medaka_canu_out:
@@ -45,6 +47,9 @@ outputs:
   best_fasta:
     type: File
     outputSource: best-result/best_fasta
+  prokka_dir:
+    type:  ["null", "Directory"]
+    outputSource: gene-prediction/prokka_dir
 
 steps:
   assembly:
@@ -79,3 +84,13 @@ steps:
         source: [assembly/quickmerge_canuflye_out, assembly/quickmerge_canuwtdbg2_out, assembly/quickmerge_flyewtdbg2_out]
         linkMerge: merge_flattened
     out: [best_fasta]
+  gene-prediction:
+    run: geneprediction/prokka.cwl
+    in:
+      fasta: best-result/best_fasta
+      prefix: prefix
+      kingdom: kingdom
+      threads: threads
+      prokaryotic: prokaryotic
+    out: [prokka_dir]
+    when: $(inputs.prokaryotic)

@@ -19,6 +19,8 @@ inputs:
   min_coverage: int
   mode: string
   lineage: string
+  kingdom: string
+  prokaryotic: boolean
 
 outputs: 
   medaka_canu_out:
@@ -49,6 +51,9 @@ outputs:
   best_fastas:
     type: File[]
     outputSource: assembly_evaluation/best_fasta
+  prokka_dir:
+    type: ["Directory[]", "null"]
+    outputSource: assembly_evaluation/prokka_dir
 
 steps:
   zerothstep:
@@ -57,7 +62,7 @@ steps:
       dir: fastq_directory
     out: [reads]
   assembly_evaluation:
-    run: cwl/assembly_evaluation.cwl
+    run: cwl/assembly_evaluation_geneprediction.cwl
     scatter: [fastq]
     in:
       fastq: zerothstep/reads
@@ -70,4 +75,6 @@ steps:
       min_coverage: min_coverage
       mode: mode
       lineage: lineage
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta]
+      kingdom: kingdom
+      prokaryotic: prokaryotic
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir]
