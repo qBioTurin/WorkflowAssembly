@@ -31,3 +31,4 @@ bash runStreamflow.sh
 - **FILENAME_ASSEMBLER_consensus.fasta**: Polished result of assembly fasta obtain by ASSEMBLER
 - **FILENAME_ASSEMBLER1_ASSEMBLER2_merged.fasta**: Quickmerge result between the assembly of ASSEMBLER1 and ASSEMBLER2
 - **FILENAME_ASSEMBLER1_ASSEMBLER2_merged.json**: Busco result of quickmerge result between the assembly of ASSEMBLER1 and ASSEMBLER2
+- **FILENAME_ASSEMBLER1_ASSEMBLER2_merged_prokka**: The prokka results over the best assembly result
