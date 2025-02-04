@@ -45,6 +45,9 @@ outputs:
     type: File
     outputBinding:
       glob: "$(inputs.prefix)/*.json"
-      outputEval: ${
-          self[0].basename = inputs.fasta.nameroot + ".json";
-          return self; } 
+      outputEval: |
+        ${
+          var fasta_name = Array.isArray(inputs.fasta) ? inputs.fasta[0].nameroot : inputs.fasta.nameroot;
+          self[0].basename = fasta_name + "_" + inputs.mode + ".json";
+          return self;
+        }

@@ -17,7 +17,8 @@ inputs:
   pacbio: boolean
   pacbio-hifi: boolean 
   min_coverage: int
-  mode: string
+  mode_genome: string
+  mode_protein: string
   lineage: string
   kingdom: string
   prokaryotic: boolean
@@ -49,7 +50,10 @@ outputs:
     outputSource: best-result/best_fasta
   prokka_dir:
     type:  ["null", "Directory"]
-    outputSource: gene-prediction/prokka_dir
+    outputSource: gene-prediction-prokaryotic/prokka_dir
+  evaluation-prediction:
+    type:  ["null", "File"]
+    outputSource: gene-prediction-prokaryotic/busco_json
 
 steps:
   assembly:
@@ -73,7 +77,7 @@ steps:
         linkMerge: merge_flattened
       prefix: prefix
       threads: threads
-      mode: mode
+      mode: mode_genome
       lineage: lineage
     out: [busco_json]
   best-result:
@@ -84,13 +88,15 @@ steps:
         source: [assembly/quickmerge_canuflye_out, assembly/quickmerge_canuwtdbg2_out, assembly/quickmerge_flyewtdbg2_out]
         linkMerge: merge_flattened
     out: [best_fasta]
-  gene-prediction:
-    run: geneprediction/prokka.cwl
+  gene-prediction-prokaryotic:
+    run: geneprediction_prokaryotic.cwl
     in:
       fasta: best-result/best_fasta
       prefix: prefix
       kingdom: kingdom
       threads: threads
       prokaryotic: prokaryotic
-    out: [prokka_dir]
+      mode: mode_protein
+      lineage: lineage
+    out: [prokka_dir, busco_json]
     when: $(inputs.prokaryotic)

@@ -1,12 +1,16 @@
-genome_size: 13m
+genome_size: 5m
 fastq_directory:
   class: Directory
-  path: /storage/tmp/input
+  path: /storage/tmp/base
 nanopore: true
 prefix: assembly
-threads: 34
+threads: 36
 pacbio: false
 pacbio-hifi: false
 min_coverage: 8
-lineage: ascomycota
-mode: genome
+lineage: enterobacterales
+mode_genome: genome
+mode_protein: prot
+kingdom: Bacteria
+prokaryotic: true
+eukaryotic: false

@@ -17,7 +17,8 @@ inputs:
   pacbio: boolean
   pacbio-hifi: boolean
   min_coverage: int
-  mode: string
+  mode_genome: string
+  mode_protein: string
   lineage: string
   kingdom: string
   prokaryotic: boolean
@@ -54,6 +55,9 @@ outputs:
   prokka_dir:
     type: ["Directory[]", "null"]
     outputSource: assembly_evaluation/prokka_dir
+  evaluation-prediction:
+    type: ["File[]", "null"]
+    outputSource: assembly_evaluation/evaluation-prediction
 
 steps:
   zerothstep:
@@ -73,8 +77,9 @@ steps:
       pacbio: pacbio
       pacbio-hifi: pacbio-hifi 
       min_coverage: min_coverage
-      mode: mode
+      mode_genome: mode_genome
+      mode_protein: mode_protein
       lineage: lineage
       kingdom: kingdom
       prokaryotic: prokaryotic
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir]
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction]

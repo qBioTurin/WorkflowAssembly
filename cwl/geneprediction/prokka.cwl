@@ -45,3 +45,11 @@ outputs:
         var nameParts = inputs.fasta.basename.split(".");
         self[0].basename = nameParts[0] + "_prokka";
         return self; }
+  prokka_faa:
+    type: File
+    outputBinding:
+      glob: $(inputs.prefix)/*.faa
+      outputEval: ${
+        var nameParts = inputs.fasta.basename.split(".");
+        self[0].basename = nameParts[0] + "_prokka.faa";
+        return self; }

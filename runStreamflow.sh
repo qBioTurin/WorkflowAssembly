@@ -1,1 +1,1 @@
-streamflow run --outdir output/ streamflow.yml
+time streamflow run --color --outdir output/ streamflow.yml
