@@ -63,6 +63,14 @@ workflows:
         target:
           deployment: slurm-busco
           workdir: /beegfs/home/scontald/sf_tmp
+      - step: /assembly_evaluation/gene-prediction-eukaryotic/gene-prediction
+        target:
+          deployment: slurm-braker3
+          workdir: /beegfs/home/scontald/sf_tmp
+      - step: /assembly_evaluation/gene-prediction-eukaryotic/evaluation-prediction/busco
+        target:
+          deployment: slurm-busco
+          workdir: /beegfs/home/scontald/sf_tmp
         
 
 deployments:
@@ -122,6 +130,14 @@ deployments:
       sshKey: key/id_rsa  
       maxConcurrentJobs: 100
       file: ./sbatch/prokka.sh
+  slurm-braker3:
+    type: slurm
+    config:
+      hostname: c3sfr1.di.unito.it
+      username: scontald
+      sshKey: key/id_rsa  
+      maxConcurrentJobs: 100
+      file: ./sbatch/braker3.sh
   slurm-best-result:
     type: slurm
     config:

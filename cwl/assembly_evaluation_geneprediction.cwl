@@ -22,6 +22,8 @@ inputs:
   lineage: string
   kingdom: string
   prokaryotic: boolean
+  eukaryotic: boolean
+  prot_seq: File?
 
 outputs: 
   medaka_canu_out:
@@ -51,9 +53,18 @@ outputs:
   prokka_dir:
     type:  ["null", "Directory"]
     outputSource: gene-prediction-prokaryotic/prokka_dir
-  evaluation-prediction:
+  evaluation-prediction_prokka:
     type:  ["null", "File"]
     outputSource: gene-prediction-prokaryotic/busco_json
+  braker_gtf:
+    type:  ["null", "File"]
+    outputSource: gene-prediction-eukaryotic/braker_gtf
+  braker_aa:
+    type:  ["null", "File"]
+    outputSource: gene-prediction-eukaryotic/braker_aa
+  evaluation-prediction_braker:
+    type:  ["null", "File"]
+    outputSource: gene-prediction-eukaryotic/busco_json
 
 steps:
   assembly:
@@ -100,3 +111,15 @@ steps:
       lineage: lineage
     out: [prokka_dir, busco_json]
     when: $(inputs.prokaryotic)
+  gene-prediction-eukaryotic:
+    run: geneprediction_eukaryotic.cwl
+    in:
+      fasta: best-result/best_fasta
+      prefix: prefix
+      threads: threads
+      prot_seq: prot_seq
+      eukaryotic: eukaryotic
+      mode: mode_protein
+      lineage: lineage
+    out: [braker_gtf, braker_aa, busco_json]
+    when: $(inputs.eukaryotic)

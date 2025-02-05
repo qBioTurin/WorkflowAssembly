@@ -22,6 +22,8 @@ inputs:
   lineage: string
   kingdom: string
   prokaryotic: boolean
+  eukaryotic: boolean
+  prot_seq: File?
 
 outputs: 
   medaka_canu_out:
@@ -55,9 +57,18 @@ outputs:
   prokka_dir:
     type: ["Directory[]", "null"]
     outputSource: assembly_evaluation/prokka_dir
-  evaluation-prediction:
+  evaluation-prediction_prokka:
     type: ["File[]", "null"]
-    outputSource: assembly_evaluation/evaluation-prediction
+    outputSource: assembly_evaluation/evaluation-prediction_prokka
+  braker_gtf:
+    type: ["File[]", "null"]
+    outputSource: assembly_evaluation/braker_gtf
+  braker_aa:
+    type: ["File[]", "null"]
+    outputSource: assembly_evaluation/braker_aa
+  evaluation-prediction_braker:
+    type: ["File[]", "null"]
+    outputSource: assembly_evaluation/evaluation-prediction_braker
 
 steps:
   zerothstep:
@@ -82,4 +93,6 @@ steps:
       lineage: lineage
       kingdom: kingdom
       prokaryotic: prokaryotic
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction]
+      eukaryotic: eukaryotic
+      prot_seq: prot_seq
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction_prokka, braker_gtf, braker_aa, evaluation-prediction_braker]
