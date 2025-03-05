@@ -24,6 +24,7 @@ inputs:
   prokaryotic: boolean
   eukaryotic: boolean
   prot_seq: File?
+#   database_interpro: Directory
 
 outputs: 
   medaka_canu_out:
@@ -69,6 +70,9 @@ outputs:
   evaluation-prediction_braker:
     type: ["File[]", "null"]
     outputSource: assembly_evaluation/evaluation-prediction_braker
+  interpro_result:
+    type: File[]
+    outputSource: assembly_evaluation/interpro_result
 
 steps:
   zerothstep:
@@ -95,4 +99,5 @@ steps:
       prokaryotic: prokaryotic
       eukaryotic: eukaryotic
       prot_seq: prot_seq
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction_prokka, braker_gtf, braker_aa, evaluation-prediction_braker]
+    #   database_interpro: database_interpro
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction_prokka, braker_gtf, braker_aa, evaluation-prediction_braker, interpro_result]

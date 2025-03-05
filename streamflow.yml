@@ -6,143 +6,123 @@ workflows:
     config:
       file: workflow.cwl
       settings: config.yml
+      docker:
+        - step: /
+          deployment:
+            type: none
+            config: {}
     bindings:
       - step: /assembly_evaluation/assembly/canu/canu
         target:
-          deployment: slurm-canu
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: canu
       - step: /assembly_evaluation/assembly/canu/medaka_canu
         target:
-          deployment: slurm-medaka
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: medaka
       - step: /assembly_evaluation/assembly/flye/flye
         target:
-          deployment: slurm-flye
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: flye
       - step: /assembly_evaluation/assembly/flye/medaka_flye
         target:
-          deployment: slurm-medaka
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: medaka
       - step: /assembly_evaluation/assembly/wtdbg2/wtdbg2
         target:
-          deployment: slurm-wtdbg2
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: wtdbg2
       - step: /assembly_evaluation/assembly/wtdbg2/wtpoa-cns
         target:
-          deployment: slurm-wtdbg2
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: wtdbg2
       - step: /assembly_evaluation/assembly/wtdbg2/medaka_wtdbg2
         target:
-          deployment: slurm-medaka
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: medaka
       - step: /assembly_evaluation/assembly/quickmerge_canuflye
         target:
-          deployment: slurm-quickmerge
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: quickmerge
       - step: /assembly_evaluation/assembly/quickmerge_flyewtdbg2
         target:
-          deployment: slurm-quickmerge
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: quickmerge
       - step: /assembly_evaluation/assembly/quickmerge_canuwtdbg2
         target:
-          deployment: slurm-quickmerge
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: quickmerge
       - step: /assembly_evaluation/evaluation/busco
         target:
-          deployment: slurm-busco
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: busco
       - step: /assembly_evaluation/best-result
         target:
-          deployment: slurm-best-result
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: best-result
       - step: /assembly_evaluation/gene-prediction-prokaryotic/gene-prediction
         target:
-          deployment: slurm-prokka
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: prokka
       - step: /assembly_evaluation/gene-prediction-prokaryotic/evaluation-prediction/busco
         target:
-          deployment: slurm-busco
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: busco
       - step: /assembly_evaluation/gene-prediction-eukaryotic/gene-prediction
         target:
-          deployment: slurm-braker3
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: braker3
       - step: /assembly_evaluation/gene-prediction-eukaryotic/evaluation-prediction/busco
         target:
-          deployment: slurm-busco
-          workdir: /beegfs/home/scontald/sf_tmp
+          deployment: c3sfr1-slurm
+          service: busco
+      - step: /assembly_evaluation/interpro
+        target:
+          deployment: c3sfr1-slurm
+          service: interpro
+      # - step: /
+      #   target:
+      #     deployment: c3sfr1-slurm
+      #     service: quickmerge
         
+database:
+  type: sqlite
+  config:
+    connection: ./database/test
+    # connection: /storage/gitProjects/Workflows/Assembly/database/test
 
 deployments:
-  slurm-canu:
+  c3sfr1-ssh:
+    type: ssh
+    config:
+      nodes:
+        - c3sfr1.di.unito.it
+      username: scontald
+      sshKey: key/id_rsa
+    workdir: /beegfs/home/scontald/sf_tmp/
+  c3sfr1-slurm:
     type: slurm
     config:
-      hostname: c3sfr1.di.unito.it
-      username: scontald
-      sshKey: key/id_rsa  
-      maxConcurrentJobs: 100 
-      file: ./sbatch/canu.sh
-  slurm-flye:
-    type: slurm
-    config:
-      hostname: c3sfr1.di.unito.it
-      username: scontald
-      sshKey: key/id_rsa  
-      maxConcurrentJobs: 100 
-      file: ./sbatch/flye.sh
-  slurm-wtdbg2:
-    type: slurm
-    config:
-      hostname: c3sfr1.di.unito.it
-      username: scontald
-      sshKey: key/id_rsa  
-      maxConcurrentJobs: 100
-      file: ./sbatch/wtdbg2.sh
-  slurm-medaka:
-    type: slurm
-    config:
-      hostname: c3sfr1.di.unito.it
-      username: scontald
-      sshKey: key/id_rsa  
-      maxConcurrentJobs: 100
-      file: ./sbatch/medaka.sh
-  slurm-quickmerge:
-    type: slurm
-    config:
-      hostname: c3sfr1.di.unito.it
-      username: scontald
-      sshKey: key/id_rsa  
-      maxConcurrentJobs: 100
-      file: ./sbatch/quickmerge.sh
-  slurm-busco:
-    type: slurm
-    config:
-      hostname: c3sfr1.di.unito.it
-      username: scontald
-      sshKey: key/id_rsa  
-      maxConcurrentJobs: 100
-      file: ./sbatch/busco.sh
-  slurm-prokka:
-    type: slurm
-    config:
-      hostname: c3sfr1.di.unito.it
-      username: scontald
-      sshKey: key/id_rsa  
-      maxConcurrentJobs: 100
-      file: ./sbatch/prokka.sh
-  slurm-braker3:
-    type: slurm
-    config:
-      hostname: c3sfr1.di.unito.it
-      username: scontald
-      sshKey: key/id_rsa  
-      maxConcurrentJobs: 100
-      file: ./sbatch/braker3.sh
-  slurm-best-result:
-    type: slurm
-    config:
-      hostname: c3sfr1.di.unito.it
-      username: scontald
-      sshKey: key/id_rsa  
-      maxConcurrentJobs: 100
-      file: ./sbatch/bestResult.sh
+      maxConcurrentJobs: 40
+      services:
+        canu:
+          file: sbatch/canu.sh
+        flye:
+          file: sbatch/flye.sh
+        wtdbg2:
+          file: sbatch/wtdbg2.sh
+        medaka:
+          file: sbatch/medaka.sh
+        quickmerge:
+          file: sbatch/quickmerge.sh
+        busco:
+          file: sbatch/busco.sh
+        prokka:
+          file: sbatch/prokka.sh
+        braker3:
+          file: sbatch/braker3.sh
+        best-result:
+          file: sbatch/bestResult.sh
+        interpro:
+          file: sbatch/interpro.sh
+    wraps: c3sfr1-ssh

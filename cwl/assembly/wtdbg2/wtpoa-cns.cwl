@@ -39,6 +39,6 @@ outputs:
     outputBinding:
       glob: $(inputs.prefix).fasta
       outputEval: ${
-        var nameParts = inputs.lay[0].basename.split(".");
+        var nameParts = inputs.lay.basename.split(".");
         self[0].basename = nameParts[0] + "_wtdbg2.fasta";
         return self; }

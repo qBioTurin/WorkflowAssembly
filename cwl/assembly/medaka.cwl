@@ -9,9 +9,6 @@ requirements:
   InlineJavascriptRequirement: {}
   InitialWorkDirRequirement:
     listing: [ $(inputs.assembly) ]
-hints:
-  ResourceRequirement:
-    coresMax: $(inputs.threads)
 
 baseCommand: ["medaka_consensus"]
 

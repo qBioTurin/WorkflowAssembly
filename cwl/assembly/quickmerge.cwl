@@ -29,8 +29,8 @@ outputs:
     outputBinding:
       glob: merged_out.fasta
       outputEval: ${
-          var hybrid_name = inputs.hybrid[0].basename;
-          var self_fasta_name = inputs.self_fasta[0].basename;
+          var hybrid_name = inputs.hybrid.basename;
+          var self_fasta_name = inputs.self_fasta.basename;
           var nameParts = hybrid_name.split('.')[0].split('_').slice(0, -2).join('_');
           
           var assemblyTech = "";

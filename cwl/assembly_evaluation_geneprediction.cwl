@@ -24,6 +24,7 @@ inputs:
   prokaryotic: boolean
   eukaryotic: boolean
   prot_seq: File?
+#   database_interpro: Directory
 
 outputs: 
   medaka_canu_out:
@@ -65,6 +66,9 @@ outputs:
   evaluation-prediction_braker:
     type:  ["null", "File"]
     outputSource: gene-prediction-eukaryotic/busco_json
+  interpro_result:
+    type: File
+    outputSource: interpro/annotated_protein
 
 steps:
   assembly:
@@ -123,3 +127,15 @@ steps:
       lineage: lineage
     out: [braker_gtf, braker_aa, busco_json]
     when: $(inputs.eukaryotic)
+  clean-proteins:
+    run: geneprediction/clean_protein_file.cwl
+    in:
+      input_file: gene-prediction-eukaryotic/braker_aa
+    out: [cleaned_file]
+  interpro:
+    run: geneprediction/interpro.cwl
+    in:
+      proteins: clean-proteins/cleaned_file
+      threads: threads
+    #   database: database_interpro
+    out: [annotated_protein]
