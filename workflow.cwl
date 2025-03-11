@@ -17,14 +17,11 @@ inputs:
   pacbio: boolean
   pacbio-hifi: boolean
   min_coverage: int
-  mode_genome: string
-  mode_protein: string
   lineage: string
   kingdom: string
   prokaryotic: boolean
   eukaryotic: boolean
   prot_seq: File?
-#   database_interpro: Directory
 
 outputs: 
   medaka_canu_out:
@@ -92,12 +89,9 @@ steps:
       pacbio: pacbio
       pacbio-hifi: pacbio-hifi 
       min_coverage: min_coverage
-      mode_genome: mode_genome
-      mode_protein: mode_protein
       lineage: lineage
       kingdom: kingdom
       prokaryotic: prokaryotic
       eukaryotic: eukaryotic
       prot_seq: prot_seq
-    #   database_interpro: database_interpro
     out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction_prokka, braker_gtf, braker_aa, evaluation-prediction_braker, interpro_result]

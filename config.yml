@@ -9,25 +9,9 @@ pacbio: false
 pacbio-hifi: false
 min_coverage: 8
 lineage: ascomycota
-mode_genome: genome
-mode_protein: prot
 kingdom: Bacteria
 prokaryotic: false
 eukaryotic: true
 prot_seq:
   class: File
   path:  /storage/gitProjects/Workflows/Assembly/data/prot_seq/uniprotkb_ascomycota_2024_11_06.fasta 
-# database_interpro:
-#   class: Directory
-#   path: /storage/gitProjects/Workflows/Assembly/data/interproscan-5.73-104.0/data
-# database:
-#   class: Directory
-#   path: /storage/gitProjects/Workflows/Assembly/data/interproscan-5.73-104.0/data
-
-
-# self_fasta:
-#   class: File
-#   path:  /storage/gitProjects/Workflows/Assembly/WorkflowAssembly/output/FAX53706_basecall01_wtdbg2_consensus.fasta
-# hybrid:
-#   class: File
-#   path:  /storage/gitProjects/Workflows/Assembly/WorkflowAssembly/output/FAX53706_basecall01_flye_consensus.fasta

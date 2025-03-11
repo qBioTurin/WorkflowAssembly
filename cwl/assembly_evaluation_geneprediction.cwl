@@ -17,14 +17,11 @@ inputs:
   pacbio: boolean
   pacbio-hifi: boolean 
   min_coverage: int
-  mode_genome: string
-  mode_protein: string
   lineage: string
   kingdom: string
   prokaryotic: boolean
   eukaryotic: boolean
   prot_seq: File?
-#   database_interpro: Directory
 
 outputs: 
   medaka_canu_out:
@@ -92,7 +89,8 @@ steps:
         linkMerge: merge_flattened
       prefix: prefix
       threads: threads
-      mode: mode_genome
+      mode:
+        default: "genome"
       lineage: lineage
     out: [busco_json]
   best-result:
@@ -111,7 +109,8 @@ steps:
       kingdom: kingdom
       threads: threads
       prokaryotic: prokaryotic
-      mode: mode_protein
+      mode: 
+        default: "prot"
       lineage: lineage
     out: [prokka_dir, busco_json]
     when: $(inputs.prokaryotic)
@@ -123,7 +122,8 @@ steps:
       threads: threads
       prot_seq: prot_seq
       eukaryotic: eukaryotic
-      mode: mode_protein
+      mode: 
+        default: "prot"
       lineage: lineage
     out: [braker_gtf, braker_aa, busco_json]
     when: $(inputs.eukaryotic)
@@ -137,5 +137,4 @@ steps:
     in:
       proteins: clean-proteins/cleaned_file
       threads: threads
-    #   database: database_interpro
     out: [annotated_protein]
