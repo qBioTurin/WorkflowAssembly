@@ -17,7 +17,7 @@ outputs:
     outputBinding:
       glob: "cleaned.aa"
       outputEval: ${
-        var nameParts = inputs.input_file[0].basename.split(".");
+        var nameParts = inputs.input_file.basename.split(".");
         self[0].basename = nameParts[0] + ".aa";
         return self; }
 

@@ -1,1 +1,1 @@
-time streamflow run --color --debug --outdir output/ streamflow.yml
+time streamflow run --color --outdir output/ streamflow.yml
