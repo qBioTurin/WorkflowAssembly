@@ -26,24 +26,17 @@ inputs:
       position: 3
       prefix: genomeSize=
       separate: false
-  nanopore:
-    doc: ""
-    type: boolean?
+  seq_technology:
+    type: 
+    - type: enum
+      symbols:
+        - nanopore
+        - pacbio
+        - pacbio-hifi
     inputBinding:
       position: 6
-      prefix: -nanopore
-  pacbio:
-    doc: ""
-    type: boolean?
-    inputBinding:
-      position: 7
-      prefix: -pacbio
-  pacbio-hifi:
-    doc: ""
-    type: boolean?
-    inputBinding:
-      position: 8
-      prefix: -pacbio-hifi
+      prefix: "-"
+      separate: false
   min_coverage:
     doc: ""
     type: int?

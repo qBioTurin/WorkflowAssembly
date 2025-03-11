@@ -11,17 +11,23 @@ requirements:
 inputs:
   fastq: File
   genome_size: string
-  nanopore: boolean
+#   nanopore: boolean
   prefix: string
   threads: int
-  pacbio: boolean
-  pacbio-hifi: boolean 
+#   pacbio: boolean
+#   pacbio-hifi: boolean 
   min_coverage: int
   lineage: string
   kingdom: string
   prokaryotic: boolean
   eukaryotic: boolean
   prot_seq: File?
+  seq_technology: 
+    - type: enum
+      symbols:
+        - nanopore
+        - pacbio
+        - pacbio-hifi
 
 outputs: 
   medaka_canu_out:
@@ -73,12 +79,13 @@ steps:
     in:
       fastq: fastq
       genome_size: genome_size
-      nanopore: nanopore
+    #   nanopore: nanopore
       prefix: prefix
       threads: threads
-      pacbio: pacbio
-      pacbio-hifi: pacbio-hifi
+    #   pacbio: pacbio
+    #   pacbio-hifi: pacbio-hifi
       min_coverage: min_coverage
+      seq_technology: seq_technology
     out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out]
   evaluation:
     run: evaluation.cwl

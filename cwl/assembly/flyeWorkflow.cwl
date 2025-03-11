@@ -11,11 +11,14 @@ requirements:
 inputs:
   fastq: File
   genome_size: string
-  nanopore: boolean
   prefix: string
   threads: int
-  pacbio: boolean
-  pacbio-hifi: boolean 
+  seq_technology: 
+    - type: enum
+      symbols:
+        - nanopore
+        - pacbio
+        - pacbio-hifi
   
 
 outputs: 
@@ -29,11 +32,9 @@ steps:
     in:
       fastq: fastq
       genome_size: genome_size
-      nanopore: nanopore
       prefix: prefix
       threads: threads
-      pacbio: pacbio
-      pacbio-hifi: pacbio-hifi
+      seq_technology: seq_technology
     out: [contigs]
   medaka_flye:
     run: medaka.cwl

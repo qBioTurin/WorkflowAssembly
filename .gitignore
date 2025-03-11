@@ -2,3 +2,4 @@ output
 venv
 key
 database
+*nohup.out*

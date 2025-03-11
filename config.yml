@@ -2,11 +2,9 @@ genome_size: 13m
 fastq_directory:
   class: Directory
   path: /storage/gitProjects/Workflows/Assembly/data/inputs
-nanopore: true
 prefix: assembly
 threads: 36
-pacbio: false
-pacbio-hifi: false
+seq_technology: nanopore
 min_coverage: 8
 lineage: ascomycota
 kingdom: Bacteria

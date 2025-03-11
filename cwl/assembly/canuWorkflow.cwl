@@ -11,12 +11,15 @@ requirements:
 inputs:
   fastq: File
   genome_size: string
-  nanopore: boolean
   prefix: string
   threads: int?
-  pacbio: boolean
-  pacbio-hifi: boolean
   min_coverage: int
+  seq_technology: 
+    - type: enum
+      symbols:
+        - nanopore
+        - pacbio
+        - pacbio-hifi
 
 outputs: 
   contigs:
@@ -29,12 +32,10 @@ steps:
     in:
       fastq: fastq
       genome_size: genome_size
-      nanopore: nanopore
       prefix: prefix
       threads: threads
-      pacbio: pacbio
-      pacbio-hifi: pacbio-hifi
       min_coverage: min_coverage
+      seq_technology: seq_technology
     out: [contigs]
   medaka_canu:
     run: medaka.cwl

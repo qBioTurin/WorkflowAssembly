@@ -11,12 +11,18 @@ requirements:
 inputs:
   fastq: File
   genome_size: string
-  nanopore: boolean
+#   nanopore: boolean
   prefix: string
   threads: int
-  pacbio: boolean
-  pacbio-hifi: boolean 
+#   pacbio: boolean
+#   pacbio-hifi: boolean 
   min_coverage: int
+  seq_technology: 
+    - type: enum
+      symbols:
+        - nanopore
+        - pacbio
+        - pacbio-hifi
 
 outputs: 
   medaka_canu_out:
@@ -44,22 +50,24 @@ steps:
     in:
       fastq: fastq
       genome_size: genome_size
-      nanopore: nanopore
+    #   nanopore: nanopore
       prefix: prefix
       threads: threads
-      pacbio: pacbio
-      pacbio-hifi: pacbio-hifi
+    #   pacbio: pacbio
+    #   pacbio-hifi: pacbio-hifi
       min_coverage: min_coverage
+      seq_technology: seq_technology
     out: [contigs]
   flye:
     run: assembly/flyeWorkflow.cwl
     in:
       fastq: fastq
       genome_size: genome_size
-      nanopore: nanopore
+    #   nanopore: nanopore
       prefix: prefix
-      pacbio: pacbio                                                                                                                                    
-      pacbio-hifi: pacbio-hifi
+    #   pacbio: pacbio                                                                                                                                    
+    #   pacbio-hifi: pacbio-hifi
+      seq_technology: seq_technology
       threads: threads
     out: [contigs]
   wtdbg2:

@@ -14,7 +14,7 @@ hints:
     dockerPull: quay.io/biocontainers/flye:2.9.3--py310h2b6aa90_0 
 
 baseCommand: ["flye"]
-
+    
 inputs: 
   fastq:
     doc: "FASTQ input files"
@@ -27,22 +27,24 @@ inputs:
     inputBinding:
       position: 3
       prefix: -g
-  nanopore:
-    doc: ""
-    type: boolean?
+  seq_technology:
+    type: 
+    - type: enum
+      symbols:
+        - nanopore
+        - pacbio
+        - pacbio-hifi
     inputBinding:
       position: 5
-      prefix: --nano-raw
-  pacbio:
-    type: boolean?
-    inputBinding:
-      position: 6
-      prefix: --pacbio-raw
-  pacbio-hifi:
-    type: boolean?
-    inputBinding:
-      position: 7
-      prefix: --pacbio-hifi
+      valueFrom: |
+        ${ 
+          var mapping = {
+            "nanopore": "--nano-raw",
+            "pacbio": "--pacbio-raw",
+            "pacbio-hifi": "--pacbio-hifi"
+          };
+          return mapping[inputs.seq_technology];
+        }
   prefix:
     doc: "Assembly prefix"
     type: string

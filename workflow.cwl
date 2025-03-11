@@ -11,17 +11,20 @@ requirements:
 inputs:
   fastq_directory: Directory
   genome_size: string
-  nanopore: boolean
   prefix: string
   threads: int
-  pacbio: boolean
-  pacbio-hifi: boolean
   min_coverage: int
   lineage: string
   kingdom: string
   prokaryotic: boolean
   eukaryotic: boolean
   prot_seq: File?
+  seq_technology: 
+    - type: enum
+      symbols:
+        - nanopore
+        - pacbio
+        - pacbio-hifi
 
 outputs: 
   medaka_canu_out:
@@ -83,15 +86,13 @@ steps:
     in:
       fastq: zerothstep/reads
       genome_size: genome_size
-      nanopore: nanopore
       prefix: prefix
       threads: threads
-      pacbio: pacbio
-      pacbio-hifi: pacbio-hifi 
       min_coverage: min_coverage
       lineage: lineage
       kingdom: kingdom
       prokaryotic: prokaryotic
       eukaryotic: eukaryotic
       prot_seq: prot_seq
+      seq_technology: seq_technology
     out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction_prokka, braker_gtf, braker_aa, evaluation-prediction_braker, interpro_result]
