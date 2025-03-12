@@ -23,7 +23,8 @@ inputs:
       prefix: -i
   prefix:
     doc: "Assembly prefix"
-    type: string
+    type: string?
+    default: "assembly"
   threads:
     doc: ""
     type: int?

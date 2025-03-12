@@ -2,7 +2,6 @@ genome_size: 13m
 fastq_directory:
   class: Directory
   path: /storage/gitProjects/Workflows/Assembly/data/inputs
-prefix: assembly
 threads: 36
 seq_technology: nanopore
 min_coverage: 8

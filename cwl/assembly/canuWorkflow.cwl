@@ -11,7 +11,6 @@ requirements:
 inputs:
   fastq: File
   genome_size: string
-  prefix: string
   threads: int?
   min_coverage: int
   seq_technology: 
@@ -32,7 +31,6 @@ steps:
     in:
       fastq: fastq
       genome_size: genome_size
-      prefix: prefix
       threads: threads
       min_coverage: min_coverage
       seq_technology: seq_technology

@@ -10,7 +10,6 @@ requirements:
 
 inputs:
   fasta: File
-  prefix: string
   threads: int
   kingdom: string
   prokaryotic: boolean
@@ -30,7 +29,6 @@ steps:
     run: geneprediction/prokka.cwl
     in:
       fasta: fasta
-      prefix: prefix
       kingdom: kingdom
       threads: threads
       prokaryotic: prokaryotic
@@ -39,7 +37,6 @@ steps:
     run: evaluation.cwl
     in:
       fasta: gene-prediction/prokka_faa
-      prefix: prefix
       threads: threads
       mode: mode 
       lineage: lineage

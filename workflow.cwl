@@ -11,7 +11,6 @@ requirements:
 inputs:
   fastq_directory: Directory
   genome_size: string
-  prefix: string
   threads: int
   min_coverage: int
   lineage: string
@@ -52,9 +51,6 @@ outputs:
         type: array
         items: File
     outputSource: assembly_evaluation/busco_json
-  best_fastas:
-    type: File[]
-    outputSource: assembly_evaluation/best_fasta
   prokka_dir:
     type: ["Directory[]", "null"]
     outputSource: assembly_evaluation/prokka_dir
@@ -86,7 +82,6 @@ steps:
     in:
       fastq: zerothstep/reads
       genome_size: genome_size
-      prefix: prefix
       threads: threads
       min_coverage: min_coverage
       lineage: lineage

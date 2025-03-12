@@ -19,7 +19,8 @@ inputs:
       position: 30
       prefix: -i
   prefix:
-    type: string
+    type: string?
+    default: "assembly"
     inputBinding: 
       position: 5
       prefix: -o
@@ -44,7 +45,7 @@ outputs:
   busco_json:
     type: File
     outputBinding:
-      glob: "$(inputs.prefix)/*.json"
+      glob: $(inputs.prefix)/*.json
       outputEval: |
         ${
           var fasta_name = Array.isArray(inputs.fasta) ? inputs.fasta[0].nameroot : inputs.fasta.nameroot;

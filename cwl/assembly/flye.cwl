@@ -47,7 +47,8 @@ inputs:
         }
   prefix:
     doc: "Assembly prefix"
-    type: string
+    type: string?
+    default: "assembly"
     inputBinding:
       position: 1
       prefix: -o

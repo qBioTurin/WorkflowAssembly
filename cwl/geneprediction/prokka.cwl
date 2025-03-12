@@ -18,7 +18,8 @@ inputs:
     inputBinding:
       position: 30
   prefix:
-    type: string
+    type: string?
+    default: "assembly"
     inputBinding:
       position: 1
       prefix: --prefix

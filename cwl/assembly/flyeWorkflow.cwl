@@ -11,7 +11,6 @@ requirements:
 inputs:
   fastq: File
   genome_size: string
-  prefix: string
   threads: int
   seq_technology: 
     - type: enum
@@ -32,7 +31,6 @@ steps:
     in:
       fastq: fastq
       genome_size: genome_size
-      prefix: prefix
       threads: threads
       seq_technology: seq_technology
     out: [contigs]

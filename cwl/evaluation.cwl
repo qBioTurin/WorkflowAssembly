@@ -10,7 +10,6 @@ requirements:
 
 inputs:
   fasta: File
-  prefix: string
   threads: int
   mode: string
   lineage: string
@@ -25,7 +24,6 @@ steps:
     run: evaluation/busco.cwl
     in: 
       fasta: fasta 
-      prefix: prefix
       mode: mode
       lineage: lineage
       threads: threads

@@ -10,7 +10,6 @@ requirements:
 
 inputs:
   fasta: File
-  prefix: string
   threads: int
   eukaryotic: boolean
   prot_seq: File
@@ -41,7 +40,6 @@ steps:
     run: evaluation.cwl
     in:
       fasta: gene-prediction/braker_aa
-      prefix: prefix
       threads: threads
       mode: mode 
       lineage: lineage

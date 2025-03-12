@@ -11,11 +11,7 @@ requirements:
 inputs:
   fastq: File
   genome_size: string
-#   nanopore: boolean
-  prefix: string
   threads: int
-#   pacbio: boolean
-#   pacbio-hifi: boolean 
   min_coverage: int
   lineage: string
   kingdom: string
@@ -79,11 +75,7 @@ steps:
     in:
       fastq: fastq
       genome_size: genome_size
-    #   nanopore: nanopore
-      prefix: prefix
       threads: threads
-    #   pacbio: pacbio
-    #   pacbio-hifi: pacbio-hifi
       min_coverage: min_coverage
       seq_technology: seq_technology
     out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out]
@@ -94,7 +86,6 @@ steps:
       fasta:  
         source: [assembly/quickmerge_canuflye_out, assembly/quickmerge_canuwtdbg2_out, assembly/quickmerge_flyewtdbg2_out]
         linkMerge: merge_flattened
-      prefix: prefix
       threads: threads
       mode:
         default: "genome"
@@ -112,7 +103,6 @@ steps:
     run: geneprediction_prokaryotic.cwl
     in:
       fasta: best-result/best_fasta
-      prefix: prefix
       kingdom: kingdom
       threads: threads
       prokaryotic: prokaryotic
@@ -125,7 +115,6 @@ steps:
     run: geneprediction_eukaryotic.cwl
     in:
       fasta: best-result/best_fasta
-      prefix: prefix
       threads: threads
       prot_seq: prot_seq
       eukaryotic: eukaryotic

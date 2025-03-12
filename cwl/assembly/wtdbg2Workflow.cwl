@@ -10,7 +10,6 @@ requirements:
 
 inputs:
   fastq: File
-  prefix: string
   threads: int
   genome_size: string  
   
@@ -25,7 +24,6 @@ steps:
     run: wtdbg2/wtdbg2.cwl
     in:
       fastq: fastq
-      prefix: prefix
       threads: threads
       genome_size: genome_size
     out: [lay]
@@ -33,7 +31,6 @@ steps:
     run: wtdbg2/wtpoa-cns.cwl
     in:
       lay: wtdbg2/lay
-      prefix: prefix
       threads: threads
     out: [fasta]
   medaka_wtdbg2:

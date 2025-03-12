@@ -11,11 +11,7 @@ requirements:
 inputs:
   fastq: File
   genome_size: string
-#   nanopore: boolean
-  prefix: string
   threads: int
-#   pacbio: boolean
-#   pacbio-hifi: boolean 
   min_coverage: int
   seq_technology: 
     - type: enum
@@ -50,11 +46,7 @@ steps:
     in:
       fastq: fastq
       genome_size: genome_size
-    #   nanopore: nanopore
-      prefix: prefix
       threads: threads
-    #   pacbio: pacbio
-    #   pacbio-hifi: pacbio-hifi
       min_coverage: min_coverage
       seq_technology: seq_technology
     out: [contigs]
@@ -63,18 +55,13 @@ steps:
     in:
       fastq: fastq
       genome_size: genome_size
-    #   nanopore: nanopore
-      prefix: prefix
-    #   pacbio: pacbio                                                                                                                                    
-    #   pacbio-hifi: pacbio-hifi
       seq_technology: seq_technology
       threads: threads
     out: [contigs]
   wtdbg2:
     run: assembly/wtdbg2Workflow.cwl
     in:
-      fastq: fastq   
-      prefix: prefix
+      fastq: fastq
       threads: threads
       genome_size: genome_size
     out: [contigs]
