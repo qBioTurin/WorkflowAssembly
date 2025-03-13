@@ -60,36 +60,27 @@ workflows:
         target:
           deployment: c3sfr1-slurm
           service: best-result
-      - step: /assembly_evaluation/gene-prediction-prokaryotic/gene-prediction
+      - step: /assembly_evaluation/geneprediction/gene-prediction-prokaryotic
         target:
           deployment: c3sfr1-slurm
           service: prokka
-      - step: /assembly_evaluation/gene-prediction-prokaryotic/evaluation-prediction/busco
+      - step: /assembly_evaluation/evaluation-prediction/busco
         target:
           deployment: c3sfr1-slurm
           service: busco
-      - step: /assembly_evaluation/gene-prediction-eukaryotic/gene-prediction
+      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic
         target:
           deployment: c3sfr1-slurm
           service: braker3
-      - step: /assembly_evaluation/gene-prediction-eukaryotic/evaluation-prediction/busco
-        target:
-          deployment: c3sfr1-slurm
-          service: busco
       - step: /assembly_evaluation/interpro
         target:
           deployment: c3sfr1-slurm
           service: interpro
-      # - step: /
-      #   target:
-      #     deployment: c3sfr1-slurm
-      #     service: quickmerge
         
 database:
   type: sqlite
   config:
     connection: ./database/test
-    # connection: /storage/gitProjects/Workflows/Assembly/database/test
 
 deployments:
   c3sfr1-ssh:

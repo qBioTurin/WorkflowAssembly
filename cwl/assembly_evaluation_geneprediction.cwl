@@ -52,19 +52,16 @@ outputs:
     outputSource: best-result/best_fasta
   prokka_dir:
     type:  ["null", "Directory"]
-    outputSource: gene-prediction-prokaryotic/prokka_dir
-  evaluation-prediction_prokka:
-    type:  ["null", "File"]
-    outputSource: gene-prediction-prokaryotic/busco_json
+    outputSource: geneprediction/prokka_dir
+  evaluation-prediction:
+    type:  File
+    outputSource: evaluation-prediction/busco_json
   braker_gtf:
     type:  ["null", "File"]
-    outputSource: gene-prediction-eukaryotic/braker_gtf
-  braker_aa:
-    type:  ["null", "File"]
-    outputSource: gene-prediction-eukaryotic/braker_aa
-  evaluation-prediction_braker:
-    type:  ["null", "File"]
-    outputSource: gene-prediction-eukaryotic/busco_json
+    outputSource: geneprediction/braker_gtf
+  proteins:
+    type:  File
+    outputSource: geneprediction/proteins
   interpro_result:
     type: File
     outputSource: interpro/annotated_protein
@@ -99,34 +96,29 @@ steps:
         source: [assembly/quickmerge_canuflye_out, assembly/quickmerge_canuwtdbg2_out, assembly/quickmerge_flyewtdbg2_out]
         linkMerge: merge_flattened
     out: [best_fasta]
-  gene-prediction-prokaryotic:
-    run: geneprediction_prokaryotic.cwl
+  geneprediction:
+    run: geneprediction.cwl
     in:
       fasta: best-result/best_fasta
       kingdom: kingdom
       threads: threads
       prokaryotic: prokaryotic
-      mode: 
-        default: "prot"
-      lineage: lineage
-    out: [prokka_dir, busco_json]
-    when: $(inputs.prokaryotic)
-  gene-prediction-eukaryotic:
-    run: geneprediction_eukaryotic.cwl
-    in:
-      fasta: best-result/best_fasta
-      threads: threads
-      prot_seq: prot_seq
       eukaryotic: eukaryotic
+      prot_seq: prot_seq
+    out: [prokka_dir, braker_gtf, proteins]
+  evaluation-prediction:
+    run: evaluation.cwl
+    in:
+      fasta: geneprediction/proteins
+      threads: threads
       mode: 
-        default: "prot"
+        default: "prot" 
       lineage: lineage
-    out: [braker_gtf, braker_aa, busco_json]
-    when: $(inputs.eukaryotic)
+    out: [busco_json]
   clean-proteins:
     run: geneprediction/clean_protein_file.cwl
     in:
-      input_file: gene-prediction-eukaryotic/braker_aa
+      input_file: geneprediction/proteins
     out: [cleaned_file]
   interpro:
     run: geneprediction/interpro.cwl

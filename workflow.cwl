@@ -54,18 +54,15 @@ outputs:
   prokka_dir:
     type: ["Directory[]", "null"]
     outputSource: assembly_evaluation/prokka_dir
-  evaluation-prediction_prokka:
+  evaluation-prediction:
     type: ["File[]", "null"]
-    outputSource: assembly_evaluation/evaluation-prediction_prokka
+    outputSource: assembly_evaluation/evaluation-prediction
   braker_gtf:
     type: ["File[]", "null"]
     outputSource: assembly_evaluation/braker_gtf
-  braker_aa:
-    type: ["File[]", "null"]
-    outputSource: assembly_evaluation/braker_aa
-  evaluation-prediction_braker:
-    type: ["File[]", "null"]
-    outputSource: assembly_evaluation/evaluation-prediction_braker
+  proteins:
+    type: File[]
+    outputSource: assembly_evaluation/proteins
   interpro_result:
     type: File[]
     outputSource: assembly_evaluation/interpro_result
@@ -90,4 +87,4 @@ steps:
       eukaryotic: eukaryotic
       prot_seq: prot_seq
       seq_technology: seq_technology
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction_prokka, braker_gtf, braker_aa, evaluation-prediction_braker, interpro_result]
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result]
