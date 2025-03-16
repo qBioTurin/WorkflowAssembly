@@ -35,15 +35,6 @@ outputs:
   medaka_wtdbg2_out:
     type: File[]
     outputSource: assembly_evaluation/medaka_wtdbg2_out
-  quickmerge_canuflye_out:
-    type: File[]
-    outputSource: assembly_evaluation/quickmerge_canuflye_out
-  quickmerge_canuwtdbg2_out:
-    type: File[]
-    outputSource: assembly_evaluation/quickmerge_canuwtdbg2_out
-  quickmerge_flyewtdbg2_out:
-    type: File[]
-    outputSource: assembly_evaluation/quickmerge_flyewtdbg2_out
   busco_results:
     type:
       type: array
@@ -66,6 +57,13 @@ outputs:
   interpro_result:
     type: File[]
     outputSource: assembly_evaluation/interpro_result
+  quickmerge_out:
+    type:
+      type: array
+      items:
+        type: array
+        items: File
+    outputSource: assembly_evaluation/quickmerge_out
 
 steps:
   zerothstep:
@@ -87,4 +85,4 @@ steps:
       eukaryotic: eukaryotic
       prot_seq: prot_seq
       seq_technology: seq_technology
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result]
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out]

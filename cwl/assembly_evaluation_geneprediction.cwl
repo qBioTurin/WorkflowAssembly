@@ -35,15 +35,6 @@ outputs:
   medaka_wtdbg2_out:
     type: File
     outputSource: assembly/medaka_wtdbg2_out
-  quickmerge_canuflye_out:
-    type: File
-    outputSource: assembly/quickmerge_canuflye_out
-  quickmerge_canuwtdbg2_out:
-    type: File
-    outputSource: assembly/quickmerge_canuwtdbg2_out
-  quickmerge_flyewtdbg2_out:
-    type: File
-    outputSource: assembly/quickmerge_flyewtdbg2_out
   busco_json:
     type: File[]
     outputSource: evaluation/busco_json
@@ -65,6 +56,9 @@ outputs:
   interpro_result:
     type: File
     outputSource: interpro/annotated_protein
+  quickmerge_out:
+    type: File[]
+    outputSource: assembly/quickmerge_out
 
 steps:
   assembly:
@@ -75,14 +69,12 @@ steps:
       threads: threads
       min_coverage: min_coverage
       seq_technology: seq_technology
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_canuflye_out, quickmerge_canuwtdbg2_out, quickmerge_flyewtdbg2_out]
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_out]
   evaluation:
     run: evaluation.cwl
     scatter: [fasta]
     in:
-      fasta:  
-        source: [assembly/quickmerge_canuflye_out, assembly/quickmerge_canuwtdbg2_out, assembly/quickmerge_flyewtdbg2_out]
-        linkMerge: merge_flattened
+      fasta: assembly/quickmerge_out
       threads: threads
       mode:
         default: "genome"
@@ -92,9 +84,7 @@ steps:
     run: evaluation/bestResult.cwl
     in:
       json: evaluation/busco_json
-      fasta: 
-        source: [assembly/quickmerge_canuflye_out, assembly/quickmerge_canuwtdbg2_out, assembly/quickmerge_flyewtdbg2_out]
-        linkMerge: merge_flattened
+      fasta: assembly/quickmerge_out
     out: [best_fasta]
   geneprediction:
     run: geneprediction.cwl

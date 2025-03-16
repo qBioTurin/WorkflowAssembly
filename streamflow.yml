@@ -40,15 +40,7 @@ workflows:
         target:
           deployment: c3sfr1-slurm
           service: medaka
-      - step: /assembly_evaluation/assembly/quickmerge_canuflye
-        target:
-          deployment: c3sfr1-slurm
-          service: quickmerge
-      - step: /assembly_evaluation/assembly/quickmerge_flyewtdbg2
-        target:
-          deployment: c3sfr1-slurm
-          service: quickmerge
-      - step: /assembly_evaluation/assembly/quickmerge_canuwtdbg2
+      - step: /assembly_evaluation/assembly/quickmerge
         target:
           deployment: c3sfr1-slurm
           service: quickmerge
