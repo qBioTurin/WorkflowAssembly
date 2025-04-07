@@ -15,8 +15,11 @@ inputs:
   min_coverage: int
   lineage: string
   kingdom: string
-  prokaryotic: boolean
-  eukaryotic: boolean
+  domain:
+    - type: enum
+      symbols:
+        - eukaryotic
+        - prokaryotic
   prot_seq: File?
   seq_technology: 
     - type: enum
@@ -81,8 +84,7 @@ steps:
       min_coverage: min_coverage
       lineage: lineage
       kingdom: kingdom
-      prokaryotic: prokaryotic
-      eukaryotic: eukaryotic
+      domain: domain
       prot_seq: prot_seq
       seq_technology: seq_technology
     out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out]

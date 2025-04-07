@@ -12,9 +12,12 @@ inputs:
   fasta: File
   threads: int
   kingdom: string
-  prokaryotic: boolean
-  eukaryotic: boolean
   prot_seq: File?
+  domain:
+    - type: enum
+      symbols:
+        - eukaryotic
+        - prokaryotic
 
 outputs: 
   prokka_dir:
@@ -37,15 +40,15 @@ steps:
       fasta: fasta
       prot_seq: prot_seq
       threads: threads
-      eukaryotic: eukaryotic
+      domain: domain
     out: [braker_gtf, braker_aa]
-    when: $(inputs.eukaryotic)
+    when: $(inputs.domain === "eukaryotic")
   gene-prediction-prokaryotic:
     run: geneprediction/prokka.cwl
     in:
       fasta: fasta
       threads: threads
       kingdom: kingdom 
-      prokaryotic: prokaryotic
+      domain: domain
     out: [prokka_dir, prokka_faa]
-    when: $(inputs.prokaryotic)
+    when: $(inputs.domain === "prokaryotic")

@@ -34,8 +34,8 @@ inputs:
     inputBinding:
       position: 4
       prefix: --cpus
-  prokaryotic:
-    type: boolean
+  domain:
+    type: string
 
 outputs:
   prokka_dir:

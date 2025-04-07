@@ -1,4 +1,4 @@
-genome_size: 13m
+genome_size: 41m
 fastq_directory:
   class: Directory
   path: /storage/gitProjects/Workflows/Assembly/data/inputs
@@ -7,8 +7,7 @@ seq_technology: nanopore
 min_coverage: 8
 lineage: ascomycota
 kingdom: Bacteria
-prokaryotic: false
-eukaryotic: true
+domain: eukaryotic
 prot_seq:
   class: File
   path:  /storage/gitProjects/Workflows/Assembly/data/prot_seq/uniprotkb_ascomycota_2024_11_06.fasta 

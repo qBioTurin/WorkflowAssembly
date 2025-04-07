@@ -29,8 +29,8 @@ inputs:
     inputBinding:
       position: 4
       prefix: --threads
-  eukaryotic:
-    type: boolean
+  domain:
+    type: string
 
 outputs:
   braker_gtf:

@@ -15,9 +15,12 @@ inputs:
   min_coverage: int
   lineage: string
   kingdom: string
-  prokaryotic: boolean
-  eukaryotic: boolean
   prot_seq: File?
+  domain:
+    - type: enum
+      symbols:
+        - eukaryotic
+        - prokaryotic
   seq_technology: 
     - type: enum
       symbols:
@@ -92,8 +95,7 @@ steps:
       fasta: best-result/best_fasta
       kingdom: kingdom
       threads: threads
-      prokaryotic: prokaryotic
-      eukaryotic: eukaryotic
+      domain: domain
       prot_seq: prot_seq
     out: [prokka_dir, braker_gtf, proteins]
   evaluation-prediction:
