@@ -67,6 +67,9 @@ outputs:
         type: array
         items: File
     outputSource: assembly_evaluation/quickmerge_out
+  braker_codingseq:
+    type: ["File[]", "null"]
+    outputSource: assembly_evaluation/braker_codingseq
 
 steps:
   zerothstep:
@@ -87,4 +90,4 @@ steps:
       domain: domain
       prot_seq: prot_seq
       seq_technology: seq_technology
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out]
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq]

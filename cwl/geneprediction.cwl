@@ -26,6 +26,9 @@ outputs:
   braker_gtf:
     type: ["File", "null"]
     outputSource: gene-prediction-eukaryotic/braker_gtf
+  braker_codingseq:
+    type: ["File", "null"]
+    outputSource: gene-prediction-eukaryotic/braker_codingseq
   proteins:
     type: File
     outputSource:
@@ -41,7 +44,7 @@ steps:
       prot_seq: prot_seq
       threads: threads
       domain: domain
-    out: [braker_gtf, braker_aa]
+    out: [braker_gtf, braker_aa, braker_codingseq]
     when: $(inputs.domain === "eukaryotic")
   gene-prediction-prokaryotic:
     run: geneprediction/prokka.cwl

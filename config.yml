@@ -1,7 +1,7 @@
-genome_size: 41m
+genome_size: 12.4m
 fastq_directory:
   class: Directory
-  path: /storage/gitProjects/Workflows/Assembly/data/inputs
+  path: /storage/gitProjects/Workflows/Assembly/data/candida_auris
 threads: 36
 seq_technology: nanopore
 min_coverage: 8

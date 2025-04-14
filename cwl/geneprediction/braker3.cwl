@@ -49,3 +49,11 @@ outputs:
         var nameParts = inputs.fasta.basename.split(".");
         self[0].basename = nameParts[0] + "_braker.aa";
         return self; } 
+  braker_codingseq:
+    type: File
+    outputBinding:
+      glob: braker/braker.codingseq
+      outputEval: ${
+        var nameParts = inputs.fasta.basename.split(".");
+        self[0].basename = nameParts[0] + "_braker.codingseq";
+        return self; } 

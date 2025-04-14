@@ -62,6 +62,9 @@ outputs:
   quickmerge_out:
     type: File[]
     outputSource: assembly/quickmerge_out
+  braker_codingseq:
+    type:  ["null", "File"]
+    outputSource: geneprediction/braker_codingseq
 
 steps:
   assembly:
@@ -97,7 +100,7 @@ steps:
       threads: threads
       domain: domain
       prot_seq: prot_seq
-    out: [prokka_dir, braker_gtf, proteins]
+    out: [prokka_dir, braker_gtf, proteins, braker_codingseq]
   evaluation-prediction:
     run: evaluation.cwl
     in:
