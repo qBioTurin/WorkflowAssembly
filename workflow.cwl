@@ -27,6 +27,7 @@ inputs:
         - nanopore
         - pacbio
         - pacbio-hifi
+  taxon: int
 
 outputs: 
   medaka_canu_out:
@@ -70,6 +71,18 @@ outputs:
   braker_codingseq:
     type: ["File[]", "null"]
     outputSource: assembly_evaluation/braker_codingseq
+  enrichment:
+    type: File[]
+    outputSource: assembly_evaluation/enrichment
+  summary:
+    type: File[]
+    outputSource: assembly_evaluation/summary
+  report:
+    type: File[]
+    outputSource: assembly_evaluation/report
+  reactome:
+    type: File[]
+    outputSource: assembly_evaluation/reactome
 
 steps:
   zerothstep:
@@ -90,4 +103,5 @@ steps:
       domain: domain
       prot_seq: prot_seq
       seq_technology: seq_technology
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq]
+      taxon: taxon
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq, enrichment, summary, report, reactome]

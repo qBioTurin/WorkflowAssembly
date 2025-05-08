@@ -11,3 +11,4 @@ domain: eukaryotic
 prot_seq:
   class: File
   path:  /storage/gitProjects/Workflows/Assembly/data/prot_seq/uniprotkb_ascomycota_2024_11_06.fasta 
+taxon: 512

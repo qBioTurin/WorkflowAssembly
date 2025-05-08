@@ -27,6 +27,7 @@ inputs:
         - nanopore
         - pacbio
         - pacbio-hifi
+  taxon: int
 
 outputs: 
   medaka_canu_out:
@@ -65,6 +66,18 @@ outputs:
   braker_codingseq:
     type:  ["null", "File"]
     outputSource: geneprediction/braker_codingseq
+  enrichment:
+    type: File
+    outputSource: go_enrich/enrichment
+  summary:
+    type: File
+    outputSource: postprocessing/summary
+  report:
+    type: File
+    outputSource: postprocessing/report
+  reactome:
+    type: File
+    outputSource: postprocessing/reactome
 
 steps:
   assembly:
@@ -121,3 +134,15 @@ steps:
       proteins: clean-proteins/cleaned_file
       threads: threads
     out: [annotated_protein]
+  go_enrich:
+    run: geneprediction/go_enrich.cwl
+    in:
+      interpro: interpro/annotated_protein
+      aminoacid: clean-proteins/cleaned_file
+      taxon: taxon
+    out: [enrichment]
+  postprocessing:
+    run: geneprediction/postprocessing.cwl
+    in:
+      interpro: interpro/annotated_protein
+    out: [summary, report, reactome]

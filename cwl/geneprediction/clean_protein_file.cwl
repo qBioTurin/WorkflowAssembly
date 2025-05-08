@@ -15,10 +15,10 @@ outputs:
   cleaned_file:
     type: File
     outputBinding:
-      glob: "cleaned.aa"
+      glob: "cleaned.faa"
       outputEval: ${
         var nameParts = inputs.input_file.basename.split(".");
-        self[0].basename = nameParts[0] + ".aa";
+        self[0].basename = nameParts[0] + ".faa";
         return self; }
 
-stdout: cleaned.aa
+stdout: cleaned.faa

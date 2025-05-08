@@ -4,7 +4,7 @@ workflows:
   workflow:
     type: cwl
     config:
-      file: workflow.cwl
+      file: cwl/geneprediction/postprocessing.cwl
       settings: config.yml
       docker:
         - step: /
@@ -68,6 +68,14 @@ workflows:
         target:
           deployment: c3sfr1-slurm
           service: interpro
+      - step: /assembly_evaluation/go_enrich
+        target:
+          deployment: c3sfr1-slurm
+          service: interpro
+      - step: /assembly_evaluation/postprocessing
+        target:
+          deployment: c3sfr1-slurm
+          service: postprocessing
         
 database:
   type: sqlite
@@ -108,4 +116,6 @@ deployments:
           file: sbatch/bestResult.sh
         interpro:
           file: sbatch/interpro.sh
+        postprocessing:
+          file: sbatch/postprocessing.sh
     wraps: c3sfr1-ssh
