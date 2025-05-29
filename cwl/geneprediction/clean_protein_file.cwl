@@ -1,6 +1,6 @@
 cwlVersion: v1.2
 class: CommandLineTool
-baseCommand: ["sed", "s/\\*//g"]
+baseCommand: ["python", "/scripts/clean-fasta.py"]
 
 requirements:
   InlineJavascriptRequirement: {}
@@ -15,10 +15,8 @@ outputs:
   cleaned_file:
     type: File
     outputBinding:
-      glob: "cleaned.faa"
+      glob: "*.cleaned"
       outputEval: ${
         var nameParts = inputs.input_file.basename.split(".");
         self[0].basename = nameParts[0] + ".faa";
         return self; }
-
-stdout: cleaned.faa

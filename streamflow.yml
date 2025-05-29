@@ -64,6 +64,10 @@ workflows:
         target:
           deployment: c3sfr1-slurm
           service: braker3
+      - step: /assembly_evaluation/clean-proteins
+        target:
+          deployment: c3sfr1-slurm
+          service: interpro
       - step: /assembly_evaluation/interpro
         target:
           deployment: c3sfr1-slurm
