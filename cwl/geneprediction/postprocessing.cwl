@@ -17,11 +17,15 @@ inputs:
     default: "/input/signatures.tsv"
     inputBinding:
       position: 2
+  aminoacid:
+    type: File
+    inputBinding:
+      position: 4
   outputdir:
     type: string?
     default: "."
     inputBinding:
-      position: 3
+      position: 5
 
 outputs:
   summary:

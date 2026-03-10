@@ -145,4 +145,5 @@ steps:
     run: geneprediction/postprocessing.cwl
     in:
       interpro: interpro/annotated_protein
+      aminoacid: clean-proteins/cleaned_file
     out: [summary, report, reactome]
