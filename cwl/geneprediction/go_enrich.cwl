@@ -49,5 +49,5 @@ outputs:
       glob: "results.tsv"
       outputEval: ${
         var nameParts = inputs.interpro.basename.split(".");
-        self[0].basename = nameParts[0] + "_interpro.tsv";
+        self[0].basename = nameParts[0] + "_go.tsv";
         return self; }
