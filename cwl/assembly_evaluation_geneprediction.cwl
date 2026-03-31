@@ -78,6 +78,18 @@ outputs:
   reactome:
     type: File
     outputSource: postprocessing/reactome
+  RM_consensi:
+    type: File?
+    outputSource: geneprediction/RM_consensi
+  TPSI_consensi:
+    type: File?
+    outputSource: geneprediction/TPSI_consensi
+  EDTA_consensi:
+    type: File?
+    outputSource: geneprediction/EDTA_consensi
+  masked_outputs:
+    type: Directory?
+    outputSource: geneprediction/masked_outputs
 
 steps:
   assembly:
@@ -113,7 +125,7 @@ steps:
       threads: threads
       domain: domain
       prot_seq: prot_seq
-    out: [prokka_dir, braker_gtf, proteins, braker_codingseq]
+    out: [prokka_dir, braker_gtf, proteins, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]
   evaluation-prediction:
     run: evaluation.cwl
     in:

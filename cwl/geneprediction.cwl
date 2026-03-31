@@ -35,16 +35,28 @@ outputs:
       - gene-prediction-eukaryotic/braker_aa
       - gene-prediction-prokaryotic/prokka_faa
     pickValue: first_non_null
+  RM_consensi:
+    type: File?
+    outputSource: gene-prediction-eukaryotic/RM_consensi
+  TPSI_consensi:
+    type: File?
+    outputSource: gene-prediction-eukaryotic/TPSI_consensi
+  EDTA_consensi:
+    type: File?
+    outputSource: gene-prediction-eukaryotic/EDTA_consensi
+  masked_outputs:
+    type: Directory?
+    outputSource: gene-prediction-eukaryotic/masked_outputs
 
 steps:
   gene-prediction-eukaryotic:
-    run: geneprediction/braker3.cwl
+    run: geneprediction-eukaryotic.cwl
     in:
       fasta: fasta
       prot_seq: prot_seq
       threads: threads
       domain: domain
-    out: [braker_gtf, braker_aa, braker_codingseq]
+    out: [braker_gtf, braker_aa, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]
     when: $(inputs.domain === "eukaryotic")
   gene-prediction-prokaryotic:
     run: geneprediction/prokka.cwl

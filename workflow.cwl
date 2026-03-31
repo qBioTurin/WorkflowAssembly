@@ -83,6 +83,18 @@ outputs:
   reactome:
     type: File[]
     outputSource: assembly_evaluation/reactome
+  RM_consensi:
+    type: ["File[]", "null"]
+    outputSource: assembly_evaluation/RM_consensi
+  TPSI_consensi:
+    type: ["File[]", "null"]
+    outputSource: assembly_evaluation/TPSI_consensi
+  EDTA_consensi:
+    type: ["File[]", "null"]
+    outputSource: assembly_evaluation/EDTA_consensi
+  masked_outputs:
+    type: ["Directory[]", "null"]
+    outputSource: assembly_evaluation/masked_outputs
 
 steps:
   zerothstep:
@@ -104,4 +116,4 @@ steps:
       prot_seq: prot_seq
       seq_technology: seq_technology
       taxon: taxon
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq, enrichment, summary, report, reactome]
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq, enrichment, summary, report, reactome, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]

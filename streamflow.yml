@@ -4,7 +4,7 @@ workflows:
   workflow:
     type: cwl
     config:
-      file: cwl/geneprediction/postprocessing.cwl
+      file: workflow.cwl
       settings: config.yml
       docker:
         - step: /
@@ -52,6 +52,38 @@ workflows:
         target:
           deployment: c3sfr1-slurm
           service: best-result
+      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic/transposon/repeatmodeler-buildDatabase
+        target:
+          deployment: c3sfr1-slurm
+          service: repeatmodeler
+      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic/transposon/repeatmodeler-run
+        target:
+          deployment: c3sfr1-slurm
+          service: repeatmodeler
+      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic/transposon/repeatclassifier
+        target:
+          deployment: c3sfr1-slurm
+          service: repeatmodeler
+      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic/transposon/repeatmasker
+        target:
+          deployment: c3sfr1-slurm
+          service: repeatmodeler
+      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic/transposon/transposonpsi
+        target:
+          deployment: c3sfr1-slurm
+          service: transposonpsi
+      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic/transposon/transposonpsi-bedtools
+        target:
+          deployment: c3sfr1-slurm
+          service: bedtools
+      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic/transposon/edta
+        target:
+          deployment: c3sfr1-slurm
+          service: edta
+      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic/transposon/vsearch
+        target:
+          deployment: c3sfr1-slurm
+          service: vsearch
       - step: /assembly_evaluation/geneprediction/gene-prediction-prokaryotic
         target:
           deployment: c3sfr1-slurm
@@ -60,7 +92,7 @@ workflows:
         target:
           deployment: c3sfr1-slurm
           service: busco
-      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic
+      - step: /assembly_evaluation/geneprediction/gene-prediction-eukaryotic/gene-prediction-eukaryotic
         target:
           deployment: c3sfr1-slurm
           service: braker3
@@ -94,7 +126,7 @@ deployments:
         - c3sfr1.di.unito.it
       username: scontald
       sshKey: key/id_rsa
-    workdir: /beegfs/home/scontald/sf_tmp/
+    workdir: /beegfs/home/scontald/sf/assembly
   c3sfr1-slurm:
     type: slurm
     config:
@@ -122,4 +154,14 @@ deployments:
           file: sbatch/interpro.sh
         postprocessing:
           file: sbatch/postprocessing.sh
+        repeatmodeler:
+          file: sbatch/repeatmodeler.sh
+        transposonpsi:
+          file: sbatch/transposonpsi.sh
+        bedtools:
+          file: sbatch/bedtools.sh
+        edta:
+          file: sbatch/edta.sh
+        vsearch:
+          file: sbatch/vsearch.sh
     wraps: c3sfr1-ssh
