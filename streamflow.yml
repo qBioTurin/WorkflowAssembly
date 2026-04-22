@@ -48,6 +48,10 @@ workflows:
         target:
           deployment: c3sfr1-slurm
           service: busco
+      - step: /assembly_evaluation/lrge
+        target:
+          deployment: c3sfr1-slurm
+          service: lrge
       - step: /assembly_evaluation/best-result
         target:
           deployment: c3sfr1-slurm
@@ -164,4 +168,10 @@ deployments:
           file: sbatch/edta.sh
         vsearch:
           file: sbatch/vsearch.sh
+        lrge:
+          file: sbatch/lrge.sh
+        hifiasm:
+          file: sbatch/hifiasm.sh
+        any2fasta:
+          file: sbatch/any2fasta.sh
     wraps: c3sfr1-ssh

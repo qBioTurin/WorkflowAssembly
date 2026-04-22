@@ -7,12 +7,13 @@ requirements:
   MultipleInputFeatureRequirement: {}
   SubworkflowFeatureRequirement: {}
   ScatterFeatureRequirement: {}
+  StepInputExpressionRequirement: {}
 
 inputs:
   fastq: File
-  genome_size: string
+  genome_size: string?
   threads: int
-  min_coverage: int
+  min_coverage: int?
   lineage: string
   kingdom: string
   prot_seq: File?
@@ -92,11 +93,30 @@ outputs:
     outputSource: geneprediction/masked_outputs
 
 steps:
+  lrge:
+    run: assembly/lrge.cwl
+    in:
+      fastq: fastq
+      threads: threads
+      _genome_size: genome_size
+      platform: 
+        source: seq_technology
+        valueFrom: |
+          ${
+            return self == "nanopore" ? "ont" : "pb";
+          }
+    out: [genome_size]
+    when: $(inputs._genome_size == null)
   assembly:
     run: assembly.cwl
     in:
       fastq: fastq
-      genome_size: genome_size
+      genome_size: 
+        source: [genome_size, lrge/genome_size]
+        valueFrom: |
+          ${
+            return self[0] != null ? self[0] : self[1];
+          }
       threads: threads
       min_coverage: min_coverage
       seq_technology: seq_technology
@@ -105,7 +125,13 @@ steps:
     run: evaluation.cwl
     scatter: [fasta]
     in:
-      fasta: assembly/quickmerge_out
+      fasta:
+        linkMerge: merge_flattened
+        source: 
+          - assembly/quickmerge_out
+          - assembly/medaka_canu_out
+          - assembly/medaka_flye_out
+          - assembly/medaka_wtdbg2_out
       threads: threads
       mode:
         default: "genome"
@@ -115,7 +141,19 @@ steps:
     run: evaluation/bestResult.cwl
     in:
       json: evaluation/busco_json
-      fasta: assembly/quickmerge_out
+      genome_size: 
+        source: [genome_size, lrge/genome_size]
+        valueFrom: |
+          ${
+            return self[0] != null ? self[0] : self[1];
+          }
+      fasta:
+        linkMerge: merge_flattened
+        source: 
+          - assembly/quickmerge_out
+          - assembly/medaka_canu_out
+          - assembly/medaka_flye_out
+          - assembly/medaka_wtdbg2_out
     out: [best_fasta]
   geneprediction:
     run: geneprediction.cwl

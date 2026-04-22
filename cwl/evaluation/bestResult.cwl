@@ -21,6 +21,11 @@ inputs:
     inputBinding: 
       position: 2
       prefix: --fasta_file
+  genome_size:
+    type: string
+    inputBinding:
+      position: 3
+      prefix: --genome_size
 
 outputs:
   best_fasta:

@@ -10,9 +10,9 @@ requirements:
 
 inputs:
   fastq_directory: Directory
-  genome_size: string
+  genome_size: string?
   threads: int
-  min_coverage: int
+  min_coverage: int?
   lineage: string
   kingdom: string
   domain:
