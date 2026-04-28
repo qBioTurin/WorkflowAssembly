@@ -4,4 +4,4 @@
 #SBATCH --output=job_%j.out
 #SBATCH --error=job_%j.err 
 #SBATCH --reservation=assembly
-srun /opt/adw/bin/adw run -i quay.io/biocontainers/edta:2.2.2--hdfd78af_1  -c "/bin/bash -c '{{streamflow_command}}'"
+srun /opt/adw/bin/adw run -i quay.io/biocontainers/hifiasm:0.25.0--h5ca1c30_0 -c "/bin/bash -c '{{streamflow_command}}'"

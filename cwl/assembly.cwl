@@ -31,6 +31,9 @@ outputs:
   medaka_wtdbg2_out:
     type: File
     outputSource: wtdbg2/contigs
+  medaka_hifiasm_out:
+    type: File
+    outputSource: hifiasm/contigs
   quickmerge_out:
     type: File[]
     outputSource: quickmerge/quickmerge-contigs
@@ -60,8 +63,15 @@ steps:
       threads: threads
       genome_size: genome_size
     out: [contigs]
+  hifiasm:
+    run: assembly/hifiasmWorkflow.cwl
+    in:
+      fastq: fastq
+      threads: threads
+      seq_technology: seq_technology
+    out: [contigs]
   quickmerge:
     run: assembly/quickmerge-wrapper.cwl
     in:
-      items: [wtdbg2/contigs, canu/contigs, flye/contigs]
+      items: [wtdbg2/contigs, canu/contigs, flye/contigs, hifiasm/contigs]
     out: [quickmerge-contigs]

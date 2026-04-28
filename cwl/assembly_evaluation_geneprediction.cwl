@@ -40,6 +40,9 @@ outputs:
   medaka_wtdbg2_out:
     type: File
     outputSource: assembly/medaka_wtdbg2_out
+  medaka_hifiasm_out:
+    type: File
+    outputSource: assembly/medaka_hifiasm_out
   busco_json:
     type: File[]
     outputSource: evaluation/busco_json
@@ -120,7 +123,7 @@ steps:
       threads: threads
       min_coverage: min_coverage
       seq_technology: seq_technology
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, quickmerge_out]
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, quickmerge_out]
   evaluation:
     run: evaluation.cwl
     scatter: [fasta]
@@ -132,6 +135,7 @@ steps:
           - assembly/medaka_canu_out
           - assembly/medaka_flye_out
           - assembly/medaka_wtdbg2_out
+          - assembly/medaka_hifiasm_out
       threads: threads
       mode:
         default: "genome"
@@ -154,6 +158,7 @@ steps:
           - assembly/medaka_canu_out
           - assembly/medaka_flye_out
           - assembly/medaka_wtdbg2_out
+          - assembly/medaka_hifiasm_out
     out: [best_fasta]
   geneprediction:
     run: geneprediction.cwl

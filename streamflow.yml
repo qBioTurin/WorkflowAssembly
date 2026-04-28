@@ -12,6 +12,18 @@ workflows:
             type: none
             config: {}
     bindings:
+      - step: /assembly_evaluation/assembly/hifiasm/hifiasm
+        target:
+          deployment: c3sfr1-slurm
+          service: hifiasm
+      - step: /assembly_evaluation/assembly/hifiasm/any2fasta
+        target:
+          deployment: c3sfr1-slurm
+          service: any2fasta
+      - step: /assembly_evaluation/assembly/hifiasm/medaka_hifiasm
+        target:
+          deployment: c3sfr1-slurm
+          service: medaka
       - step: /assembly_evaluation/assembly/canu/canu
         target:
           deployment: c3sfr1-slurm

@@ -3,4 +3,5 @@
 #SBATCH -N 1 
 #SBATCH --output=job_%j.out
 #SBATCH --error=job_%j.err  
-srun /opt/adw/bin/adw run -i quay.io/biocontainers/repeatmodeler:2.0.7--pl5321hdfd78af_0 -c "/bin/bash -c 'time {{streamflow_command}}'"
+#SBATCH --reservation=assembly
+srun /opt/adw/bin/adw run -i quay.io/biocontainers/repeatmodeler:2.0.7--pl5321hdfd78af_0 -c "/bin/bash -c '{{streamflow_command}}'"

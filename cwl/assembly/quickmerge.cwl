@@ -41,6 +41,8 @@ outputs:
               assemblyTech = "flye";
           } else if (hybrid_name.includes("wtdbg2")) {
               assemblyTech = "wtdbg2";
+          } else if (hybrid_name.includes("hifiasm")) {
+              assemblyTech = "hifiasm";
           }
 
           if (self_fasta_name.includes("canu")) {
@@ -49,6 +51,8 @@ outputs:
               assemblyTech += "_flye";
           } else if (self_fasta_name.includes("wtdbg2")) {
               assemblyTech += "_wtdbg2";
+          } else if (self_fasta_name.includes("hifiasm")) {
+              assemblyTech += "_hifiasm";
           }
 
           self[0].basename = nameParts + "_" + assemblyTech + "_merged.fasta";
