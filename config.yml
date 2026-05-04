@@ -1,14 +1,17 @@
-genome_size: 12.4m
+genome_size: 5.7m
 fastq_directory:
   class: Directory
-  path: /storage/gitProjects/Workflows/Assembly/data/candida_auris
+  path: /storage/gitProjects/Workflows/Assembly/data/klebsiella_pneumoniae
 threads: 36
 seq_technology: nanopore
 min_coverage: 8
-lineage: ascomycota
+lineage: enterobacterales
 kingdom: Bacteria
-domain: eukaryotic
+domain: prokaryotic
 prot_seq:
   class: File
   path:  /storage/gitProjects/Workflows/Assembly/data/prot_seq/uniprotkb_ascomycota_2024_11_06.fasta 
-taxon: 512
+taxon: 570
+db_bakta:
+  class: Directory
+  path: /storage/gitProjects/Workflows/Assembly/data/bakta/db

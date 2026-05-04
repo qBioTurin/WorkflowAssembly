@@ -28,6 +28,7 @@ inputs:
         - pacbio
         - pacbio-hifi
   taxon: int
+  db_bakta: Directory
 
 outputs: 
   medaka_canu_out:
@@ -49,9 +50,9 @@ outputs:
         type: array
         items: File
     outputSource: assembly_evaluation/busco_json
-  prokka_dir:
+  bakta_dir:
     type: ["Directory[]", "null"]
-    outputSource: assembly_evaluation/prokka_dir
+    outputSource: assembly_evaluation/bakta_dir
   evaluation-prediction:
     type: ["File[]", "null"]
     outputSource: assembly_evaluation/evaluation-prediction
@@ -119,4 +120,5 @@ steps:
       prot_seq: prot_seq
       seq_technology: seq_technology
       taxon: taxon
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, busco_json, best_fasta, prokka_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq, enrichment, summary, report, reactome, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]
+      db_bakta: db_bakta
+    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, busco_json, best_fasta, bakta_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq, enrichment, summary, report, reactome, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]

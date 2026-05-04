@@ -103,7 +103,7 @@ workflows:
       - step: /assembly_evaluation/geneprediction/gene-prediction-prokaryotic
         target:
           deployment: c3sfr1-slurm
-          service: prokka
+          service: bakta
       - step: /assembly_evaluation/evaluation-prediction/busco
         target:
           deployment: c3sfr1-slurm
@@ -160,8 +160,8 @@ deployments:
           file: sbatch/quickmerge.sh
         busco:
           file: sbatch/busco.sh
-        prokka:
-          file: sbatch/prokka.sh
+        bakta:
+          file: sbatch/bakta.sh
         braker3:
           file: sbatch/braker3.sh
         best-result:

@@ -1,5 +1,6 @@
 output*
-venv
+venv*
 key
 database
 *nohup.out*
+.python-version

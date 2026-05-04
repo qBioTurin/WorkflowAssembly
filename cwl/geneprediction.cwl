@@ -18,11 +18,12 @@ inputs:
       symbols:
         - eukaryotic
         - prokaryotic
+  db_bakta: Directory
 
 outputs: 
-  prokka_dir:
+  bakta_dir:
     type: ["Directory", "null"]
-    outputSource: gene-prediction-prokaryotic/prokka_dir
+    outputSource: gene-prediction-prokaryotic/bakta_dir
   braker_gtf:
     type: ["File", "null"]
     outputSource: gene-prediction-eukaryotic/braker_gtf
@@ -33,7 +34,7 @@ outputs:
     type: File
     outputSource:
       - gene-prediction-eukaryotic/braker_aa
-      - gene-prediction-prokaryotic/prokka_faa
+      - gene-prediction-prokaryotic/bakta_faa
     pickValue: first_non_null
   RM_consensi:
     type: File?
@@ -59,11 +60,11 @@ steps:
     out: [braker_gtf, braker_aa, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]
     when: $(inputs.domain === "eukaryotic")
   gene-prediction-prokaryotic:
-    run: geneprediction/prokka.cwl
+    run: geneprediction/bakta.cwl
     in:
       fasta: fasta
+      db: db_bakta
       threads: threads
-      kingdom: kingdom 
       domain: domain
-    out: [prokka_dir, prokka_faa]
+    out: [bakta_dir, bakta_faa]
     when: $(inputs.domain === "prokaryotic")

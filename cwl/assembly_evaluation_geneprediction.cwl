@@ -29,6 +29,7 @@ inputs:
         - pacbio
         - pacbio-hifi
   taxon: int
+  db_bakta: Directory
 
 outputs: 
   medaka_canu_out:
@@ -49,9 +50,9 @@ outputs:
   best_fasta:
     type: File
     outputSource: best-result/best_fasta
-  prokka_dir:
+  bakta_dir:
     type:  ["null", "Directory"]
-    outputSource: geneprediction/prokka_dir
+    outputSource: geneprediction/bakta_dir
   evaluation-prediction:
     type:  File
     outputSource: evaluation-prediction/busco_json
@@ -168,7 +169,8 @@ steps:
       threads: threads
       domain: domain
       prot_seq: prot_seq
-    out: [prokka_dir, braker_gtf, proteins, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]
+      db_bakta: db_bakta
+    out: [bakta_dir, braker_gtf, proteins, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]
   evaluation-prediction:
     run: evaluation.cwl
     in:
