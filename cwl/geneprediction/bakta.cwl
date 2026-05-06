@@ -39,6 +39,14 @@ outputs:
         var nameParts = inputs.fasta.basename.split(".");
         self[0].basename = nameParts[0] + "_bakta";
         return self; }
+  bakta_gff:
+    type: File
+    outputBinding:
+      glob: "./output/*.gff3"
+      outputEval: ${
+        var nameParts = inputs.fasta.basename.split(".");
+        self[0].basename = nameParts[0] + "_bakta.gff3";
+        return self; }
   bakta_faa:
     type: File
     outputBinding:
@@ -54,3 +62,11 @@ outputs:
           
           return realFaa;
         }
+  bakta_fna:
+    type: File
+    outputBinding:
+      glob: "./output/*.fna"
+      outputEval: ${
+        var nameParts = inputs.fasta.basename.split(".");
+        self[0].basename = nameParts[0] + "_bakta.fna";
+        return self; }

@@ -48,6 +48,9 @@ outputs:
   masked_outputs:
     type: Directory?
     outputSource: gene-prediction-eukaryotic/masked_outputs
+  antismash_dir:
+    type: Directory
+    outputSource: antismash/antismash_dir
 
 steps:
   gene-prediction-eukaryotic:
@@ -66,5 +69,26 @@ steps:
       db: db_bakta
       threads: threads
       domain: domain
-    out: [bakta_dir, bakta_faa]
+    out: [bakta_dir, bakta_faa, bakta_gff, bakta_fna]
     when: $(inputs.domain === "prokaryotic")
+  antismash:
+    run: geneprediction/antismash.cwl
+    in:
+      fasta: 
+        source: 
+          - gene-prediction-prokaryotic/bakta_fna
+          - fasta
+        pickValue: first_non_null
+      threads: threads
+      gff:
+        source:
+          - gene-prediction-prokaryotic/bakta_gff
+          - gene-prediction-eukaryotic/braker_gtf
+        pickValue: first_non_null
+      taxon: 
+        source: domain
+        valueFrom: |
+          ${
+            return self == "eukaryotic" ? "fungi" : "bacteria";
+          }
+    out: [antismash_dir]

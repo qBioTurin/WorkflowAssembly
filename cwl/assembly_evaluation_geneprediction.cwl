@@ -95,6 +95,9 @@ outputs:
   masked_outputs:
     type: Directory?
     outputSource: geneprediction/masked_outputs
+  antismash_dir:
+    type: Directory
+    outputSource: geneprediction/antismash_dir
 
 steps:
   lrge:
@@ -170,7 +173,7 @@ steps:
       domain: domain
       prot_seq: prot_seq
       db_bakta: db_bakta
-    out: [bakta_dir, braker_gtf, proteins, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]
+    out: [bakta_dir, braker_gtf, proteins, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs, antismash_dir]
   evaluation-prediction:
     run: evaluation.cwl
     in:

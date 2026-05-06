@@ -10,9 +10,9 @@ hints:
 
 baseCommand: ["EDTA.pl"]
 arguments:
-  - valueFrom: "--force 1"
+  - valueFrom: "1"
     position: 1
-    shellQuote: false
+    prefix: --force
 
 inputs: 
   fasta:

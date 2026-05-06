@@ -104,6 +104,10 @@ workflows:
         target:
           deployment: c3sfr1-slurm
           service: bakta
+      - step: /assembly_evaluation/geneprediction/antismash
+        target:
+          deployment: c3sfr1-slurm
+          service: antismash
       - step: /assembly_evaluation/evaluation-prediction/busco
         target:
           deployment: c3sfr1-slurm
@@ -186,4 +190,6 @@ deployments:
           file: sbatch/hifiasm.sh
         any2fasta:
           file: sbatch/any2fasta.sh
+        antismash:
+          file: sbatch/antismash.sh
     wraps: c3sfr1-ssh
