@@ -15,3 +15,21 @@ taxon: 570
 db_bakta:
   class: Directory
   path: /storage/gitProjects/Workflows/Assembly/data/bakta/db
+
+# genome_size: 12.4m
+# fastq_directory:
+#   class: Directory
+#   path: /storage/gitProjects/Workflows/Assembly/data/candida_auris
+# threads: 36
+# seq_technology: nanopore
+# min_coverage: 8
+# lineage: ascomycota
+# kingdom: Bacteria
+# domain: eukaryotic
+# prot_seq:
+#   class: File
+#   path:  /storage/gitProjects/Workflows/Assembly/data/prot_seq/uniprotkb_ascomycota_2024_11_06.fasta 
+# taxon: 570
+# db_bakta:
+#   class: Directory
+#   path: /storage/gitProjects/Workflows/Assembly/data/bakta/db

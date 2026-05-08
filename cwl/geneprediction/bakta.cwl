@@ -27,8 +27,6 @@ inputs:
     inputBinding:
       position: 4
       prefix: --threads
-  domain:
-    type: string
 
 outputs:
   bakta_dir:

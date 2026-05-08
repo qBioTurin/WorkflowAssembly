@@ -100,10 +100,14 @@ workflows:
         target:
           deployment: c3sfr1-slurm
           service: vsearch
-      - step: /assembly_evaluation/geneprediction/gene-prediction-prokaryotic
+      - step: /assembly_evaluation/geneprediction/gene-prediction-prokaryotic/bakta
         target:
           deployment: c3sfr1-slurm
           service: bakta
+      - step: /assembly_evaluation/geneprediction/gene-prediction-prokaryotic/amrfinder
+        target:
+          deployment: c3sfr1-slurm
+          service: amrfinder
       - step: /assembly_evaluation/geneprediction/antismash
         target:
           deployment: c3sfr1-slurm
@@ -192,4 +196,6 @@ deployments:
           file: sbatch/any2fasta.sh
         antismash:
           file: sbatch/antismash.sh
+        amrfinder: 
+          file: sbatch/amrfinder.sh
     wraps: c3sfr1-ssh

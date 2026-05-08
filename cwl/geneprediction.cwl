@@ -51,6 +51,12 @@ outputs:
   antismash_dir:
     type: Directory
     outputSource: antismash/antismash_dir
+  amrfinder_tsv:
+    type: File?
+    outputSource: gene-prediction-prokaryotic/amrfinder_tsv
+  amrfinder_faa:
+    type: File?
+    outputSource: gene-prediction-prokaryotic/amrfinder_faa
 
 steps:
   gene-prediction-eukaryotic:
@@ -63,13 +69,13 @@ steps:
     out: [braker_gtf, braker_aa, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]
     when: $(inputs.domain === "eukaryotic")
   gene-prediction-prokaryotic:
-    run: geneprediction/bakta.cwl
+    run: geneprediction-prokaryotic.cwl
     in:
       fasta: fasta
-      db: db_bakta
+      db_bakta: db_bakta
       threads: threads
       domain: domain
-    out: [bakta_dir, bakta_faa, bakta_gff, bakta_fna]
+    out: [bakta_dir, bakta_faa, bakta_gff, bakta_fna, amrfinder_tsv, amrfinder_faa]
     when: $(inputs.domain === "prokaryotic")
   antismash:
     run: geneprediction/antismash.cwl

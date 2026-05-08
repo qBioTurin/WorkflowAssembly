@@ -98,6 +98,12 @@ outputs:
   antismash_dir:
     type: Directory
     outputSource: geneprediction/antismash_dir
+  amrfinder_tsv:
+    type: File?
+    outputSource: geneprediction/amrfinder_tsv
+  amrfinder_faa:
+    type: File?
+    outputSource: geneprediction/amrfinder_faa
 
 steps:
   lrge:
@@ -173,7 +179,7 @@ steps:
       domain: domain
       prot_seq: prot_seq
       db_bakta: db_bakta
-    out: [bakta_dir, braker_gtf, proteins, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs, antismash_dir]
+    out: [bakta_dir, braker_gtf, proteins, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs, antismash_dir, amrfinder_tsv, amrfinder_faa]
   evaluation-prediction:
     run: evaluation.cwl
     in:
