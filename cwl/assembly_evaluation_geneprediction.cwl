@@ -32,9 +32,9 @@ inputs:
   db_bakta: Directory
 
 outputs: 
-  medaka_canu_out:
-    type: File
-    outputSource: assembly/medaka_canu_out
+#   medaka_canu_out:
+#     type: File
+#     outputSource: assembly/medaka_canu_out
   medaka_flye_out:
     type: File
     outputSource: assembly/medaka_flye_out
@@ -133,7 +133,8 @@ steps:
       threads: threads
       min_coverage: min_coverage
       seq_technology: seq_technology
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, quickmerge_out]
+    out: [medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, quickmerge_out]
+    # out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, quickmerge_out]
   evaluation:
     run: evaluation.cwl
     scatter: [fasta]
@@ -142,7 +143,7 @@ steps:
         linkMerge: merge_flattened
         source: 
           - assembly/quickmerge_out
-          - assembly/medaka_canu_out
+        #   - assembly/medaka_canu_out
           - assembly/medaka_flye_out
           - assembly/medaka_wtdbg2_out
           - assembly/medaka_hifiasm_out
@@ -165,7 +166,7 @@ steps:
         linkMerge: merge_flattened
         source: 
           - assembly/quickmerge_out
-          - assembly/medaka_canu_out
+        #   - assembly/medaka_canu_out
           - assembly/medaka_flye_out
           - assembly/medaka_wtdbg2_out
           - assembly/medaka_hifiasm_out

@@ -22,9 +22,9 @@ inputs:
         - pacbio-hifi
 
 outputs: 
-  medaka_canu_out:
-    type: File
-    outputSource: canu/contigs
+#   medaka_canu_out:
+#     type: File
+#     outputSource: canu/contigs
   medaka_flye_out:
     type: File
     outputSource: flye/contigs
@@ -39,15 +39,15 @@ outputs:
     outputSource: quickmerge/quickmerge-contigs
 
 steps:
-  canu:
-    run: assembly/canuWorkflow.cwl
-    in:
-      fastq: fastq
-      genome_size: genome_size
-      threads: threads
-      min_coverage: min_coverage
-      seq_technology: seq_technology
-    out: [contigs]
+#   canu:
+#     run: assembly/canuWorkflow.cwl
+#     in:
+#       fastq: fastq
+#       genome_size: genome_size
+#       threads: threads
+#       min_coverage: min_coverage
+#       seq_technology: seq_technology
+#     out: [contigs]
   flye:
     run: assembly/flyeWorkflow.cwl
     in:
@@ -73,5 +73,6 @@ steps:
   quickmerge:
     run: assembly/quickmerge-wrapper.cwl
     in:
-      items: [wtdbg2/contigs, canu/contigs, flye/contigs, hifiasm/contigs]
+        items: [wtdbg2/contigs, flye/contigs, hifiasm/contigs]
+    #   items: [wtdbg2/contigs, canu/contigs, flye/contigs, hifiasm/contigs]
     out: [quickmerge-contigs]

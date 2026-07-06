@@ -31,9 +31,9 @@ inputs:
   db_bakta: Directory
 
 outputs: 
-  medaka_canu_out:
-    type: File[]
-    outputSource: assembly_evaluation/medaka_canu_out
+#   medaka_canu_out:
+#     type: File[]
+#     outputSource: assembly_evaluation/medaka_canu_out
   medaka_flye_out:
     type: File[]
     outputSource: assembly_evaluation/medaka_flye_out
@@ -130,4 +130,5 @@ steps:
       seq_technology: seq_technology
       taxon: taxon
       db_bakta: db_bakta
-    out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, busco_json, best_fasta, bakta_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq, enrichment, summary, report, reactome, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs, antismash_dir, amrfinder_tsv, amrfinder_faa]
+    out: [medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, busco_json, best_fasta, bakta_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq, enrichment, summary, report, reactome, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs, antismash_dir, amrfinder_tsv, amrfinder_faa]
+    # out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, busco_json, best_fasta, bakta_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq, enrichment, summary, report, reactome, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs, antismash_dir, amrfinder_tsv, amrfinder_faa]
