@@ -24,14 +24,6 @@ workflows:
         target:
           deployment: c3sfr1-slurm
           service: medaka
-      - step: /assembly_evaluation/assembly/canu/canu
-        target:
-          deployment: c3sfr1-slurm
-          service: canu
-      - step: /assembly_evaluation/assembly/canu/medaka_canu
-        target:
-          deployment: c3sfr1-slurm
-          service: medaka
       - step: /assembly_evaluation/assembly/flye/flye
         target:
           deployment: c3sfr1-slurm

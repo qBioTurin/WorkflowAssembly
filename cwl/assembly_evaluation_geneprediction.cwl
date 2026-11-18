@@ -14,7 +14,7 @@ inputs:
   fastq: File
   genome_size: string?
   threads: int
-  min_coverage: int?
+  min_coverage: int
   lineage: string
   kingdom: string
   prot_seq: File?
@@ -127,10 +127,7 @@ steps:
       fastq: fastq
       genome_size: 
         source: [genome_size, lrge/genome_size]
-        valueFrom: |
-          ${
-            return self[0] != null ? self[0] : self[1];
-          }
+        pickValue: first_non_null
       threads: threads
       min_coverage: min_coverage
       seq_technology: seq_technology
@@ -159,10 +156,7 @@ steps:
       json: evaluation/busco_json
       genome_size: 
         source: [genome_size, lrge/genome_size]
-        valueFrom: |
-          ${
-            return self[0] != null ? self[0] : self[1];
-          }
+        pickValue: first_non_null
       fasta:
         linkMerge: merge_flattened
         source: 

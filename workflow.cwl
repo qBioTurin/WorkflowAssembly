@@ -12,7 +12,9 @@ inputs:
   fastq_directory: Directory
   genome_size: string?
   threads: int
-  min_coverage: int?
+  min_coverage:
+    type: int
+    default: 8
   lineage: string
   kingdom: string
   domain:

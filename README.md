@@ -7,6 +7,7 @@ PostgreSQL, S3, or the web application.
 ## Requirements
 
 - Python 3.11
+- Node.js (the workflow contains CWL JavaScript expressions)
 - StreamFlow `0.2.0rc3`
 - access to a Slurm cluster configured in a StreamFlow YAML file
 
@@ -14,6 +15,7 @@ PostgreSQL, S3, or the web application.
 python3.11 -m venv .venv
 . .venv/bin/activate
 pip install streamflow==0.2.0rc3
+node --version
 ```
 
 Copy `streamflow.yml`, adapt its SSH, Slurm, work-directory, and service

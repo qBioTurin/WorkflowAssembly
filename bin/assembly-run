@@ -116,6 +116,11 @@ def validate_args(args: argparse.Namespace) -> None:
         fail("--threads must be greater than zero")
     if args.min_coverage <= 0:
         fail("--min-coverage must be greater than zero")
+    if not args.prepare_only and not (shutil.which("node") or shutil.which("nodejs")):
+        fail(
+            "Node.js is required by CWL JavaScript expressions; install node or nodejs "
+            "before starting StreamFlow"
+        )
 
     args.fastq_directory = local_directory(args.fastq_directory, "FASTQ directory")
 

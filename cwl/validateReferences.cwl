@@ -9,9 +9,9 @@ inputs:
   domain:
     type: Any
   prot_seq:
-    type: Any
+    type: ["null", File, string]
   db_bakta:
-    type: Any
+    type: ["null", Directory, string]
 
 outputs:
   validated:
