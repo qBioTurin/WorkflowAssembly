@@ -75,6 +75,17 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--streamflow-config", type=Path)
     result.add_argument("--streamflow-bin", default="streamflow")
     result.add_argument(
+        "--adw-launch",
+        choices=("direct", "srun"),
+        default="direct",
+        help="Invoke ADW directly (Mercurio default) or through srun",
+    )
+    result.add_argument("--slurm-partition", help="Override #SBATCH --partition in every service")
+    result.add_argument(
+        "--slurm-reservation",
+        help="Override #SBATCH --reservation; use 'none' to remove it",
+    )
+    result.add_argument(
         "--prepare-only",
         action="store_true",
         help="Generate and validate the run workspace without starting StreamFlow",
@@ -141,6 +152,53 @@ def apply_hpc_shared_patches(workspace: Path) -> None:
         target.write_text(content)
 
 
+def configure_sbatch(workspace: Path, args: argparse.Namespace) -> None:
+    for target in (workspace / "sbatch").glob("*.sh"):
+        content = target.read_text()
+        if args.slurm_partition:
+            content, count = re.subn(
+                r"^#SBATCH\s+--partition=.*$",
+                f"#SBATCH --partition={args.slurm_partition}",
+                content,
+                flags=re.MULTILINE,
+            )
+            if count != 1:
+                fail(f"Expected one Slurm partition directive in {target.name}, found {count}")
+
+        if args.slurm_reservation is not None:
+            if args.slurm_reservation.lower() == "none":
+                content = re.sub(
+                    r"^#SBATCH\s+--reservation=.*\n?", "", content, flags=re.MULTILINE
+                )
+            else:
+                replacement = f"#SBATCH --reservation={args.slurm_reservation}"
+                content, count = re.subn(
+                    r"^#SBATCH\s+--reservation=.*$",
+                    replacement,
+                    content,
+                    flags=re.MULTILINE,
+                )
+                if count == 0:
+                    content = re.sub(
+                        r"^(#SBATCH\s+--partition=.*)$",
+                        rf"\1\n{replacement}",
+                        content,
+                        count=1,
+                        flags=re.MULTILINE,
+                    )
+                elif count != 1:
+                    fail(f"Expected at most one Slurm reservation in {target.name}, found {count}")
+
+        if args.adw_launch == "direct":
+            content = re.sub(
+                r"^(\s*)(?:/opt/slurm/bin/)?srun\s+(/opt/adw/bin/adw\s+run\b)",
+                r"\1\2",
+                content,
+                flags=re.MULTILINE,
+            )
+        target.write_text(content)
+
+
 def render_streamflow_config(streamflow_config: Path, content: str) -> str:
     lines = content.splitlines()
     in_cwl_config = False
@@ -204,6 +262,7 @@ def prepare_workspace(args: argparse.Namespace, repo: Path) -> Path:
     shutil.copy2(repo / "workflow.cwl", workspace / "workflow.cwl")
     shutil.copytree(repo / "cwl", workspace / "cwl")
     shutil.copytree(repo / "sbatch", workspace / "sbatch")
+    configure_sbatch(workspace, args)
 
     rendered_streamflow = render_streamflow_config(
         streamflow_config, streamflow_config.read_text()
@@ -246,6 +305,9 @@ def prepare_workspace(args: argparse.Namespace, repo: Path) -> Path:
             {
                 "domain": args.domain,
                 "referenceMode": args.reference_mode,
+                "adwLaunch": args.adw_launch,
+                "slurmPartition": args.slurm_partition,
+                "slurmReservation": args.slurm_reservation,
                 "output": str(output),
                 "streamflowConfigSource": str(streamflow_config),
             },

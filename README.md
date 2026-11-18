@@ -7,13 +7,13 @@ PostgreSQL, S3, or the web application.
 ## Requirements
 
 - Python 3.11
-- StreamFlow `0.2.0.dev11`
+- StreamFlow `0.2.0rc3`
 - access to a Slurm cluster configured in a StreamFlow YAML file
 
 ```bash
 python3.11 -m venv .venv
 . .venv/bin/activate
-pip install streamflow==0.2.0.dev11
+pip install streamflow==0.2.0rc3
 ```
 
 Copy `streamflow.yml`, adapt its SSH, Slurm, work-directory, and service
@@ -46,6 +46,8 @@ bin/assembly-run \
   --taxon 570 \
   --bakta-db /data/references/bakta \
   --reference-mode transfer \
+  --slurm-partition broadwell-booked \
+  --slurm-reservation assembly \
   --streamflow-config /etc/workflow-assembly/streamflow.yml \
   --output ./results/klebsiella
 ```
@@ -65,6 +67,8 @@ bin/assembly-run \
   --taxon 498019 \
   --protein-fasta /storage/data/uniprot/uniprotkb_ascomycota.fasta \
   --reference-mode hpc-shared \
+  --slurm-partition broadwell-booked \
+  --slurm-reservation assembly \
   --streamflow-config /etc/workflow-assembly/streamflow.yml \
   --output ./results/candida
 ```
@@ -72,6 +76,12 @@ bin/assembly-run \
 The compute-side path must be visible with the same value inside the job and
 inside the tool container. `hpc-shared` deliberately does not check it from
 the launcher host.
+
+The launcher invokes `/opt/adw/bin/adw` directly by default, which is the
+validated mode on Mercurio. Use `--adw-launch srun` only on installations that
+require it. `--slurm-partition` and `--slurm-reservation` rewrite the copied
+service scripts for the run; pass `--slurm-reservation none` on a partition
+without a reservation.
 
 Use `--prepare-only` to inspect the generated workspace without starting
 StreamFlow. By default it is created next to the output as

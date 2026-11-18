@@ -55,6 +55,9 @@ class AssemblyRunTest(unittest.TestCase):
             self.assertIn("db_bakta", config)
             self.assertNotIn("prot_seq", config)
             self.assertEqual(config["db_bakta"]["class"], "Directory")
+            bakta_sbatch = (root / "workspace" / "sbatch" / "bakta.sh").read_text()
+            self.assertIn("/opt/adw/bin/adw run", bakta_sbatch)
+            self.assertNotIn("srun /opt/adw/bin/adw", bakta_sbatch)
 
     def test_eukaryotic_shared_contains_only_protein_path(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -77,6 +80,25 @@ class AssemblyRunTest(unittest.TestCase):
             streamflow = (root / "workspace" / "streamflow.yml").read_text()
             self.assertIn("file: workflow.cwl", streamflow)
             self.assertIn("settings: config.yml", streamflow)
+
+    def test_overrides_slurm_placement(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            bakta = root / "bakta"
+            bakta.mkdir()
+            result = self.run_launcher(
+                *self.base_arguments(root, "prokaryotic"),
+                "--bakta-db",
+                str(bakta),
+                "--slurm-partition",
+                "test-partition",
+                "--slurm-reservation",
+                "none",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            sbatch = (root / "workspace" / "sbatch" / "bakta.sh").read_text()
+            self.assertIn("#SBATCH --partition=test-partition", sbatch)
+            self.assertNotIn("#SBATCH --reservation=", sbatch)
 
     def test_rejects_reference_for_the_other_domain(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
