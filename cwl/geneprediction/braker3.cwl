@@ -19,7 +19,7 @@ inputs:
       position: 30
       prefix: --genome
   prot_seq:
-    type: File
+    type: File?
     inputBinding:
       position: 2
       prefix: --prot_seq
@@ -29,9 +29,6 @@ inputs:
     inputBinding:
       position: 4
       prefix: --threads
-  domain:
-    type: string
-
 outputs:
   braker_gtf:
     type: File

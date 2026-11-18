@@ -28,7 +28,7 @@ inputs:
         - pacbio
         - pacbio-hifi
   taxon: int
-  db_bakta: Directory
+  db_bakta: Directory?
 
 outputs: 
 #   medaka_canu_out:
@@ -110,6 +110,13 @@ outputs:
     outputSource: assembly_evaluation/amrfinder_faa
 
 steps:
+  validate-references:
+    run: cwl/validateReferences.cwl
+    in:
+      domain: domain
+      prot_seq: prot_seq
+      db_bakta: db_bakta
+    out: [validated]
   zerothstep:
     run: cwl/zerothStepSingleEnd.cwl
     in:
@@ -130,5 +137,6 @@ steps:
       seq_technology: seq_technology
       taxon: taxon
       db_bakta: db_bakta
+      _references_validated: validate-references/validated
     out: [medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, busco_json, best_fasta, bakta_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq, enrichment, summary, report, reactome, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs, antismash_dir, amrfinder_tsv, amrfinder_faa]
     # out: [medaka_canu_out, medaka_flye_out, medaka_wtdbg2_out, medaka_hifiasm_out, busco_json, best_fasta, bakta_dir, evaluation-prediction, braker_gtf, proteins, interpro_result, quickmerge_out, braker_codingseq, enrichment, summary, report, reactome, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs, antismash_dir, amrfinder_tsv, amrfinder_faa]

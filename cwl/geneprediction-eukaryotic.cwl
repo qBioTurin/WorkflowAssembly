@@ -12,11 +12,6 @@ inputs:
   fasta: File
   threads: int
   prot_seq: File?
-  domain:
-    - type: enum
-      symbols:
-        - eukaryotic
-        - prokaryotic
 
 outputs: 
   braker_gtf:
@@ -54,5 +49,4 @@ steps:
       fasta: transposon/maskered
       prot_seq: prot_seq
       threads: threads
-      domain: domain
     out: [braker_gtf, braker_aa, braker_codingseq]

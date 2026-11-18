@@ -8,9 +8,6 @@ min_coverage: 8
 lineage: enterobacterales
 kingdom: Bacteria
 domain: prokaryotic
-prot_seq:
-  class: File
-  path:  /storage/gitProjects/Workflows/Assembly/data/prot_seq/uniprotkb_ascomycota_2024_11_06.fasta 
 taxon: 570
 db_bakta:
   class: Directory
@@ -30,6 +27,3 @@ db_bakta:
 #   class: File
 #   path:  /storage/gitProjects/Workflows/Assembly/data/prot_seq/uniprotkb_ascomycota_2024_11_06.fasta 
 # taxon: 570
-# db_bakta:
-#   class: Directory
-#   path: /storage/gitProjects/Workflows/Assembly/data/bakta/db

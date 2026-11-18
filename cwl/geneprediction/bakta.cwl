@@ -17,7 +17,7 @@ inputs:
     inputBinding:
       position: 30
   db:
-    type: Directory
+    type: Directory?
     inputBinding:
       position: 1
       prefix: --db

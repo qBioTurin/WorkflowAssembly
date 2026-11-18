@@ -42,7 +42,9 @@ steps:
 
           inputs.items.forEach(function (file) {
               _self_fasta.push(file);
-              _hybrid.push(inputs.items.filter((x) => x !== file));
+              _hybrid.push(inputs.items.filter(function (candidate) {
+                return candidate !== file;
+              }));
           });
 
           return {self_fasta: _self_fasta, hybrid: _hybrid};
@@ -52,6 +54,7 @@ steps:
     out: [self_fasta, hybrid]
   quickmerge-wrapper:
     scatter: [self_fasta, hybrid]
+    scatterMethod: dotproduct
     in:
       self_fasta: prepare_combinations/self_fasta
       hybrid: prepare_combinations/hybrid

@@ -10,6 +10,7 @@ requirements:
   StepInputExpressionRequirement: {}
 
 inputs:
+  _references_validated: boolean
   fastq: File
   genome_size: string?
   threads: int
@@ -29,7 +30,7 @@ inputs:
         - pacbio
         - pacbio-hifi
   taxon: int
-  db_bakta: Directory
+  db_bakta: Directory?
 
 outputs: 
 #   medaka_canu_out:

@@ -18,7 +18,7 @@ inputs:
       symbols:
         - eukaryotic
         - prokaryotic
-  db_bakta: Directory
+  db_bakta: Directory?
 
 outputs: 
   bakta_dir:
@@ -65,18 +65,18 @@ steps:
       fasta: fasta
       prot_seq: prot_seq
       threads: threads
-      domain: domain
+      _domain: domain
     out: [braker_gtf, braker_aa, braker_codingseq, RM_consensi, TPSI_consensi, EDTA_consensi, masked_outputs]
-    when: $(inputs.domain === "eukaryotic")
+    when: $(inputs._domain === "eukaryotic")
   gene-prediction-prokaryotic:
     run: geneprediction-prokaryotic.cwl
     in:
       fasta: fasta
       db_bakta: db_bakta
       threads: threads
-      domain: domain
+      _domain: domain
     out: [bakta_dir, bakta_faa, bakta_gff, bakta_fna, amrfinder_tsv, amrfinder_faa]
-    when: $(inputs.domain === "prokaryotic")
+    when: $(inputs._domain === "prokaryotic")
   antismash:
     run: geneprediction/antismash.cwl
     in:

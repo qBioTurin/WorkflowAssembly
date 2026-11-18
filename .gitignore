@@ -4,3 +4,7 @@ key
 database
 *nohup.out*
 .python-version
+.venv/
+__pycache__/
+*.pyc
+**/.*.workflow-run/

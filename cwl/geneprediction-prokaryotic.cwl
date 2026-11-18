@@ -10,13 +10,8 @@ requirements:
 
 inputs:
   fasta: File
-  db_bakta: Directory
+  db_bakta: Directory?
   threads: int
-  domain:
-    - type: enum
-      symbols:
-        - eukaryotic
-        - prokaryotic
 
 outputs: 
   bakta_dir:
@@ -52,4 +47,4 @@ steps:
       protein: bakta/bakta_faa
       threads: threads
     out: [amrfinder_tsv, amrfinder_faa]
-  
+
